@@ -164,11 +164,11 @@ def main(**kwargs):
             'coupling_weights_rostral': 5,
             'coupling_weights_caudal': 5,
             'coupling_weights_contra': 10,
-            'init_phase': np.random.default_rng(
+            'init_phase': np.ascontiguousarray(np.random.default_rng(
                 seed=42).uniform(
                 0.0,
                 2 * np.pi,
-                size=16)}}
+                size=16))}}
 
     tic = time.time()
     runsim(
