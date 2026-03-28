@@ -1,0 +1,1435 @@
+sdf: cmc_project_pack/models/Polymander/Polymander.sdf
+spawn:
+  loader: 0
+  mode: !!python/object/apply:farms_core.model.options.SpawnMode
+  - free
+  pose:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 1.5707963267948966
+  velocity:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  extras: {}
+morphology:
+  links:
+  - name: link_body_00
+    collisions: true
+    friction:
+    - 0.3
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 700.0
+    drag_coefficients:
+    - - -0.1
+      - -2.0
+      - -2.0
+    - - -0.005
+      - -0.001
+      - -0.001
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_body_01
+    collisions: true
+    friction:
+    - 0.3
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 700.0
+    drag_coefficients:
+    - - -0.01
+      - -2.0
+      - -2.0
+    - - -0.005
+      - -0.001
+      - -0.001
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_body_02
+    collisions: true
+    friction:
+    - 0.3
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 700.0
+    drag_coefficients:
+    - - -0.01
+      - -2.0
+      - -2.0
+    - - -0.005
+      - -0.001
+      - -0.001
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_body_03
+    collisions: true
+    friction:
+    - 0.3
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 700.0
+    drag_coefficients:
+    - - -0.01
+      - -2.0
+      - -2.0
+    - - -0.005
+      - -0.001
+      - -0.001
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_body_04
+    collisions: true
+    friction:
+    - 0.3
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 700.0
+    drag_coefficients:
+    - - -0.01
+      - -2.0
+      - -2.0
+    - - -0.005
+      - -0.001
+      - -0.001
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_body_06
+    collisions: true
+    friction:
+    - 0.3
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 700.0
+    drag_coefficients:
+    - - -0.01
+      - -2.0
+      - -2.0
+    - - -0.005
+      - -0.001
+      - -0.001
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_body_07
+    collisions: true
+    friction:
+    - 0.3
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 700.0
+    drag_coefficients:
+    - - -0.01
+      - -2.0
+      - -2.0
+    - - -0.005
+      - -0.001
+      - -0.001
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_body_08
+    collisions: true
+    friction:
+    - 0.3
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 700.0
+    drag_coefficients:
+    - - -0.01
+      - -2.0
+      - -2.0
+    - - -0.005
+      - -0.001
+      - -0.001
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_body_10
+    collisions: true
+    friction:
+    - 0.3
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 700.0
+    drag_coefficients:
+    - - -0.01
+      - -2.0
+      - -2.0
+    - - -0.005
+      - -0.001
+      - -0.001
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_leg_0_L_0
+    collisions: true
+    friction:
+    - 0.3
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 500.0
+    drag_coefficients:
+    - - -2.0
+      - -0.1
+      - -2.0
+    - - 0
+      - 0
+      - 0
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_leg_0_L_1
+    collisions: true
+    friction:
+    - 0.9
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 500.0
+    drag_coefficients:
+    - - -2.0
+      - -0.1
+      - -2.0
+    - - 0
+      - 0
+      - 0
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_leg_0_R_0
+    collisions: true
+    friction:
+    - 0.3
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 500.0
+    drag_coefficients:
+    - - -2.0
+      - -0.1
+      - -2.0
+    - - 0
+      - 0
+      - 0
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_leg_0_R_1
+    collisions: true
+    friction:
+    - 0.9
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 500.0
+    drag_coefficients:
+    - - -2.0
+      - -0.1
+      - -2.0
+    - - 0
+      - 0
+      - 0
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_leg_1_L_0
+    collisions: true
+    friction:
+    - 0.3
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 500.0
+    drag_coefficients:
+    - - -2.0
+      - -0.1
+      - -2.0
+    - - 0
+      - 0
+      - 0
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_leg_1_L_1
+    collisions: true
+    friction:
+    - 0.7
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 500.0
+    drag_coefficients:
+    - - -2.0
+      - -0.1
+      - -2.0
+    - - 0
+      - 0
+      - 0
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_leg_1_R_0
+    collisions: true
+    friction:
+    - 0.3
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 500.0
+    drag_coefficients:
+    - - -2.0
+      - -0.1
+      - -2.0
+    - - 0
+      - 0
+      - 0
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_leg_1_R_1
+    collisions: true
+    friction:
+    - 0.7
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 500.0
+    drag_coefficients:
+    - - -2.0
+      - -0.1
+      - -2.0
+    - - 0
+      - 0
+      - 0
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_body_05
+    collisions: true
+    friction:
+    - 0.3
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 700.0
+    drag_coefficients:
+    - - -0.01
+      - -2.0
+      - -2.0
+    - - -0.005
+      - -0.001
+      - -0.001
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  - name: link_body_09
+    collisions: true
+    friction:
+    - 0.3
+    - 0
+    - 0
+    fluid_interaction: true
+    density: 700.0
+    drag_coefficients:
+    - - -0.01
+      - -2.0
+      - -2.0
+    - - -0.005
+      - -0.001
+      - -0.001
+    solref: null
+    solimp: null
+    extras:
+      restitution: 0.5
+      linearDamping: 0
+      angularDamping: 0
+    mass_multiplier: 1
+  self_collisions: []
+  joints:
+  - name: joint_body_00
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  - name: joint_body_01
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  - name: joint_body_02
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  - name: joint_body_03
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  - name: joint_body_04
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  - name: joint_body_06
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  - name: joint_body_07
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  - name: joint_body_08
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  - name: joint_leg_0_L_0
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  - name: joint_leg_0_L_1
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  - name: joint_leg_0_R_0
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  - name: joint_leg_0_R_1
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  - name: joint_leg_1_L_0
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  - name: joint_leg_1_L_1
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  - name: joint_leg_1_R_0
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  - name: joint_leg_1_R_1
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  - name: joint_body_05_passive
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  - name: joint_body_09_passive
+    initial:
+    - 0
+    - 0
+    limits:
+    - - -.inf
+      - .inf
+    - - -.inf
+      - .inf
+    stiffness: 0
+    springref: 0
+    damping: 0
+    extras: {}
+  n_joints_body: 8
+  n_dof_legs: 2
+  n_legs: 4
+  n_joints_passive: 2
+control:
+  controller_loader: farms_amphibious.control.amphibious.AmphibiousController
+  sensors:
+    links:
+    - link_body_00
+    - link_body_01
+    - link_body_02
+    - link_body_03
+    - link_body_04
+    - link_body_06
+    - link_body_07
+    - link_body_08
+    - link_body_10
+    - link_leg_0_L_0
+    - link_leg_0_L_1
+    - link_leg_0_R_0
+    - link_leg_0_R_1
+    - link_leg_1_L_0
+    - link_leg_1_L_1
+    - link_leg_1_R_0
+    - link_leg_1_R_1
+    - link_body_05
+    - link_body_09
+    joints:
+    - joint_body_00
+    - joint_body_01
+    - joint_body_02
+    - joint_body_03
+    - joint_body_04
+    - joint_body_06
+    - joint_body_07
+    - joint_body_08
+    - joint_leg_0_L_0
+    - joint_leg_0_L_1
+    - joint_leg_0_R_0
+    - joint_leg_0_R_1
+    - joint_leg_1_L_0
+    - joint_leg_1_L_1
+    - joint_leg_1_R_0
+    - joint_leg_1_R_1
+    - joint_body_05_passive
+    - joint_body_09_passive
+    contacts:
+    - - link_body_00
+      - ''
+    - - link_body_01
+      - ''
+    - - link_body_02
+      - ''
+    - - link_body_03
+      - ''
+    - - link_body_04
+      - ''
+    - - link_body_06
+      - ''
+    - - link_body_07
+      - ''
+    - - link_body_08
+      - ''
+    - - link_body_10
+      - ''
+    - - link_leg_0_L_0
+      - ''
+    - - link_leg_0_L_1
+      - ''
+    - - link_leg_0_R_0
+      - ''
+    - - link_leg_0_R_1
+      - ''
+    - - link_leg_1_L_0
+      - ''
+    - - link_leg_1_L_1
+      - ''
+    - - link_leg_1_R_0
+      - ''
+    - - link_leg_1_R_1
+      - ''
+    - - link_body_05
+      - ''
+    - - link_body_09
+      - ''
+    xfrc:
+    - link_body_00
+    - link_body_01
+    - link_body_02
+    - link_body_03
+    - link_body_04
+    - link_body_06
+    - link_body_07
+    - link_body_08
+    - link_body_10
+    - link_leg_0_L_0
+    - link_leg_0_L_1
+    - link_leg_0_R_0
+    - link_leg_0_R_1
+    - link_leg_1_L_0
+    - link_leg_1_L_1
+    - link_leg_1_R_0
+    - link_leg_1_R_1
+    - link_body_05
+    - link_body_09
+    muscles: []
+    adhesions: []
+    visuals: []
+  motors:
+  - joint_name: joint_body_00
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains:
+    - 0
+    - 0
+    - 0
+    equation: ekeberg_muscle
+    transform:
+      gain: 1
+      bias: 0
+    offsets:
+      gain: 0.17
+      bias: 0
+      low: 1
+      high: 5
+      saturation_low: 0
+      saturation_high: 0
+      rate: 3
+    passive:
+      is_passive: false
+      stiffness_coefficient: 0
+      damping_coefficient: 0
+      friction_coefficient: 0
+  - joint_name: joint_body_01
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains:
+    - 0
+    - 0
+    - 0
+    equation: ekeberg_muscle
+    transform:
+      gain: 1
+      bias: 0
+    offsets:
+      gain: 0.17
+      bias: 0
+      low: 1
+      high: 5
+      saturation_low: 0
+      saturation_high: 0
+      rate: 3
+    passive:
+      is_passive: false
+      stiffness_coefficient: 0
+      damping_coefficient: 0
+      friction_coefficient: 0
+  - joint_name: joint_body_02
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains:
+    - 0
+    - 0
+    - 0
+    equation: ekeberg_muscle
+    transform:
+      gain: 1
+      bias: 0
+    offsets:
+      gain: 0.17
+      bias: 0
+      low: 1
+      high: 5
+      saturation_low: 0
+      saturation_high: 0
+      rate: 3
+    passive:
+      is_passive: false
+      stiffness_coefficient: 0
+      damping_coefficient: 0
+      friction_coefficient: 0
+  - joint_name: joint_body_03
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains:
+    - 0
+    - 0
+    - 0
+    equation: ekeberg_muscle
+    transform:
+      gain: 1
+      bias: 0
+    offsets:
+      gain: 0.17
+      bias: 0
+      low: 1
+      high: 5
+      saturation_low: 0
+      saturation_high: 0
+      rate: 3
+    passive:
+      is_passive: false
+      stiffness_coefficient: 0
+      damping_coefficient: 0
+      friction_coefficient: 0
+  - joint_name: joint_body_04
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains:
+    - 0
+    - 0
+    - 0
+    equation: ekeberg_muscle
+    transform:
+      gain: 1
+      bias: 0
+    offsets:
+      gain: 0.17
+      bias: 0
+      low: 1
+      high: 5
+      saturation_low: 0
+      saturation_high: 0
+      rate: 3
+    passive:
+      is_passive: false
+      stiffness_coefficient: 0
+      damping_coefficient: 0
+      friction_coefficient: 0
+  - joint_name: joint_body_06
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains:
+    - 0
+    - 0
+    - 0
+    equation: ekeberg_muscle
+    transform:
+      gain: 1
+      bias: 0
+    offsets:
+      gain: 0.17
+      bias: 0
+      low: 1
+      high: 5
+      saturation_low: 0
+      saturation_high: 0
+      rate: 3
+    passive:
+      is_passive: false
+      stiffness_coefficient: 0
+      damping_coefficient: 0
+      friction_coefficient: 0
+  - joint_name: joint_body_07
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains:
+    - 0
+    - 0
+    - 0
+    equation: ekeberg_muscle
+    transform:
+      gain: 1
+      bias: 0
+    offsets:
+      gain: 0.17
+      bias: 0
+      low: 1
+      high: 5
+      saturation_low: 0
+      saturation_high: 0
+      rate: 3
+    passive:
+      is_passive: false
+      stiffness_coefficient: 0
+      damping_coefficient: 0
+      friction_coefficient: 0
+  - joint_name: joint_body_08
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains:
+    - 0
+    - 0
+    - 0
+    equation: ekeberg_muscle
+    transform:
+      gain: 1
+      bias: 0
+    offsets:
+      gain: 0.17
+      bias: 0
+      low: 1
+      high: 5
+      saturation_low: 0
+      saturation_high: 0
+      rate: 3
+    passive:
+      is_passive: false
+      stiffness_coefficient: 0
+      damping_coefficient: 0
+      friction_coefficient: 0
+  - joint_name: joint_leg_0_L_0
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains:
+    - 0
+    - 0
+    - 0
+    equation: ekeberg_muscle
+    transform:
+      gain: 1
+      bias: 0
+    offsets:
+      gain: 0.0
+      bias: 0.0
+      low: 0.9
+      high: 3
+      saturation_low: 0.0
+      saturation_high: -1.2566370614359172
+      rate: 3
+    passive:
+      is_passive: false
+      stiffness_coefficient: 0
+      damping_coefficient: 0
+      friction_coefficient: 0
+  - joint_name: joint_leg_0_L_1
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains:
+    - 0
+    - 0
+    - 0
+    equation: ekeberg_muscle
+    transform:
+      gain: 1
+      bias: 0
+    offsets:
+      gain: 0.0
+      bias: 0.6283185307179586
+      low: 0.9
+      high: 3
+      saturation_low: 0.6283185307179586
+      saturation_high: 0.3141592653589793
+      rate: 3
+    passive:
+      is_passive: false
+      stiffness_coefficient: 0
+      damping_coefficient: 0
+      friction_coefficient: 0
+  - joint_name: joint_leg_0_R_0
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains:
+    - 0
+    - 0
+    - 0
+    equation: ekeberg_muscle
+    transform:
+      gain: 1
+      bias: 0
+    offsets:
+      gain: 0.0
+      bias: 0.0
+      low: 0.9
+      high: 3
+      saturation_low: 0.0
+      saturation_high: -1.2566370614359172
+      rate: 3
+    passive:
+      is_passive: false
+      stiffness_coefficient: 0
+      damping_coefficient: 0
+      friction_coefficient: 0
+  - joint_name: joint_leg_0_R_1
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains:
+    - 0
+    - 0
+    - 0
+    equation: ekeberg_muscle
+    transform:
+      gain: 1
+      bias: 0
+    offsets:
+      gain: 0.0
+      bias: 0.6283185307179586
+      low: 0.9
+      high: 3
+      saturation_low: 0.6283185307179586
+      saturation_high: 0.3141592653589793
+      rate: 3
+    passive:
+      is_passive: false
+      stiffness_coefficient: 0
+      damping_coefficient: 0
+      friction_coefficient: 0
+  - joint_name: joint_leg_1_L_0
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains:
+    - 0
+    - 0
+    - 0
+    equation: ekeberg_muscle
+    transform:
+      gain: 1
+      bias: 0
+    offsets:
+      gain: 0.0
+      bias: 0.0
+      low: 0.9
+      high: 3
+      saturation_low: 0.0
+      saturation_high: -1.2566370614359172
+      rate: 3
+    passive:
+      is_passive: false
+      stiffness_coefficient: 0
+      damping_coefficient: 0
+      friction_coefficient: 0
+  - joint_name: joint_leg_1_L_1
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains:
+    - 0
+    - 0
+    - 0
+    equation: ekeberg_muscle
+    transform:
+      gain: 1
+      bias: 0
+    offsets:
+      gain: 0.0
+      bias: 0.9424777960769379
+      low: 0.9
+      high: 3
+      saturation_low: 0.9424777960769379
+      saturation_high: 0.3141592653589793
+      rate: 3
+    passive:
+      is_passive: false
+      stiffness_coefficient: 0
+      damping_coefficient: 0
+      friction_coefficient: 0
+  - joint_name: joint_leg_1_R_0
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains:
+    - 0
+    - 0
+    - 0
+    equation: ekeberg_muscle
+    transform:
+      gain: 1
+      bias: 0
+    offsets:
+      gain: 0.0
+      bias: 0.0
+      low: 0.9
+      high: 3
+      saturation_low: 0.0
+      saturation_high: -1.2566370614359172
+      rate: 3
+    passive:
+      is_passive: false
+      stiffness_coefficient: 0
+      damping_coefficient: 0
+      friction_coefficient: 0
+  - joint_name: joint_leg_1_R_1
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains:
+    - 0
+    - 0
+    - 0
+    equation: ekeberg_muscle
+    transform:
+      gain: 1
+      bias: 0
+    offsets:
+      gain: 0.0
+      bias: 0.9424777960769379
+      low: 0.9
+      high: 3
+      saturation_low: 0.9424777960769379
+      saturation_high: 0.3141592653589793
+      rate: 3
+    passive:
+      is_passive: false
+      stiffness_coefficient: 0
+      damping_coefficient: 0
+      friction_coefficient: 0
+  - joint_name: joint_body_05_passive
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains: null
+    equation: passive
+    transform:
+      gain: 1
+      bias: 0
+    offsets: null
+    passive:
+      is_passive: true
+      stiffness_coefficient: 1.0
+      damping_coefficient: 0.001
+      friction_coefficient: 0
+  - joint_name: joint_body_09_passive
+    control_types:
+    - torque
+    limits_torque:
+    - -100.0
+    - 100.0
+    gains: null
+    equation: passive
+    transform:
+      gain: 1
+      bias: 0
+    offsets: null
+    passive:
+      is_passive: true
+      stiffness_coefficient: 1.0
+      damping_coefficient: 0.001
+      friction_coefficient: 0
+  hill_muscles: []
+  network:
+    oscillators:
+    - name: osc_body_0_L
+    - name: osc_body_0_R
+    - name: osc_body_1_L
+    - name: osc_body_1_R
+    - name: osc_body_2_L
+    - name: osc_body_2_R
+    - name: osc_body_3_L
+    - name: osc_body_3_R
+    - name: osc_body_4_L
+    - name: osc_body_4_R
+    - name: osc_body_5_L
+    - name: osc_body_5_R
+    - name: osc_body_6_L
+    - name: osc_body_6_R
+    - name: osc_body_7_L
+    - name: osc_body_7_R
+    - name: osc_leg_0_L_0_0
+    - name: osc_leg_0_L_0_1
+    - name: osc_leg_0_L_1_0
+    - name: osc_leg_0_L_1_1
+    - name: osc_leg_0_R_0_0
+    - name: osc_leg_0_R_0_1
+    - name: osc_leg_0_R_1_0
+    - name: osc_leg_0_R_1_1
+    - name: osc_leg_1_L_0_0
+    - name: osc_leg_1_L_0_1
+    - name: osc_leg_1_L_1_0
+    - name: osc_leg_1_L_1_1
+    - name: osc_leg_1_R_0_0
+    - name: osc_leg_1_R_0_1
+    - name: osc_leg_1_R_1_0
+    - name: osc_leg_1_R_1_1
+    single_osc_body: false
+    single_osc_legs: false
+  muscles:
+  - joint_name: joint_body_00
+    osc1: osc_body_0_L
+    osc2: osc_body_0_R
+    alpha: 2.0519297351884336
+    beta: 2.593387801846189
+    gamma: 0.26666666666666666
+    delta: 0.6237118485606024
+    epsilon: 0
+  - joint_name: joint_body_01
+    osc1: osc_body_1_L
+    osc2: osc_body_1_R
+    alpha: 2.0519297351884336
+    beta: 2.593387801846189
+    gamma: 0.26666666666666666
+    delta: 0.6237118485606024
+    epsilon: 0
+  - joint_name: joint_body_02
+    osc1: osc_body_2_L
+    osc2: osc_body_2_R
+    alpha: 3.6031929418824986
+    beta: 4.553994448702811
+    gamma: 0.26666666666666666
+    delta: 1.095239321289756
+    epsilon: 0
+  - joint_name: joint_body_03
+    osc1: osc_body_3_L
+    osc2: osc_body_3_R
+    alpha: 4.952313454978813
+    beta: 6.259117495503023
+    gamma: 0.26666666666666666
+    delta: 1.505322783078986
+    epsilon: 0
+  - joint_name: joint_body_04
+    osc1: osc_body_4_L
+    osc2: osc_body_4_R
+    alpha: 5.186762665301867
+    beta: 6.555432574804918
+    gamma: 0.26666666666666666
+    delta: 1.5765867975608152
+    epsilon: 0
+  - joint_name: joint_body_06
+    osc1: osc_body_5_L
+    osc2: osc_body_5_R
+    alpha: 2.8584633412116585
+    beta: 3.612747470829966
+    gamma: 0.26666666666666666
+    delta: 0.8688686673893906
+    epsilon: 0
+  - joint_name: joint_body_07
+    osc1: osc_body_6_L
+    osc2: osc_body_6_R
+    alpha: 1.7202673923476721
+    beta: 2.1742072326947937
+    gamma: 0.26666666666666666
+    delta: 0.5228985851219522
+    epsilon: 0
+  - joint_name: joint_body_08
+    osc1: osc_body_7_L
+    osc2: osc_body_7_R
+    alpha: 0.910337283355693
+    beta: 1.150554800066606
+    gamma: 0.26666666666666666
+    delta: 0.27670935319004714
+    epsilon: 0
+  - joint_name: joint_leg_0_L_0
+    osc1: osc_leg_0_L_0_0
+    osc2: osc_leg_0_L_0_1
+    alpha: 3.0
+    beta: 3.0
+    gamma: 0.01
+    delta: 0.1
+    epsilon: 0
+  - joint_name: joint_leg_0_L_1
+    osc1: osc_leg_0_L_1_0
+    osc2: osc_leg_0_L_1_1
+    alpha: 1.0
+    beta: 1.0
+    gamma: 0.1
+    delta: 0.3
+    epsilon: 0
+  - joint_name: joint_leg_0_R_0
+    osc1: osc_leg_0_R_0_0
+    osc2: osc_leg_0_R_0_1
+    alpha: 3.0
+    beta: 3.0
+    gamma: 0.01
+    delta: 0.1
+    epsilon: 0
+  - joint_name: joint_leg_0_R_1
+    osc1: osc_leg_0_R_1_0
+    osc2: osc_leg_0_R_1_1
+    alpha: 1.0
+    beta: 1.0
+    gamma: 0.1
+    delta: 0.3
+    epsilon: 0
+  - joint_name: joint_leg_1_L_0
+    osc1: osc_leg_1_L_0_0
+    osc2: osc_leg_1_L_0_1
+    alpha: 3.0
+    beta: 3.0
+    gamma: 0.01
+    delta: 0.1
+    epsilon: 0
+  - joint_name: joint_leg_1_L_1
+    osc1: osc_leg_1_L_1_0
+    osc2: osc_leg_1_L_1_1
+    alpha: 1.0
+    beta: 1.0
+    gamma: 0.1
+    delta: 0.3
+    epsilon: 0
+  - joint_name: joint_leg_1_R_0
+    osc1: osc_leg_1_R_0_0
+    osc2: osc_leg_1_R_0_1
+    alpha: 3.0
+    beta: 3.0
+    gamma: 0.01
+    delta: 0.1
+    epsilon: 0
+  - joint_name: joint_leg_1_R_1
+    osc1: osc_leg_1_R_1_0
+    osc2: osc_leg_1_R_1_1
+    alpha: 1.0
+    beta: 1.0
+    gamma: 0.1
+    delta: 0.3
+    epsilon: 0
+  adhesions: []
+  visuals: []
+extensions:
+- loader: farms_mujoco.swimming.extension.SwimmingExtension
+  config:
+    water_properties: null
+show_xfrc: false
+scale_xfrc: 1
+mujoco:
+  solref:
+  - 0.01
+  - 1
+  solimp:
+  - 0.0
+  - 0.95
+  - 0.01
+  - 0.5
+  - 2
