@@ -291,9 +291,9 @@ class CPGNetwork(NeuralNetwork):
         # Only set body joints in project 1
         # self.data.state.array[iteration, :] = 0
         self.data.state.array[iteration,
-                              self.left_body_idx] = motor_output_left
+                              self.left_body_idx] = motor_output_left.copy()
         self.data.state.array[iteration,
-                              self.right_body_idx] = motor_output_right
+                              self.right_body_idx] = motor_output_right.copy()
 
         # Controller state update
         left_storage_idx = slice(
