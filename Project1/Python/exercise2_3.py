@@ -31,8 +31,11 @@ def get_animal_data(path):
 def get_animal_data(path):
     data = np.genfromtxt(path, delimiter=',', skip_header=1)
 
-    times = data[10:-10, 0]
-    joint_angles = data[10:-10, 1:9]
+    #times = data[10:-10, 0]
+    times = data[:,0]
+    #joint_angles = data[10:-10, 1:9]
+    joint_angles = data[:, 1:9]
+    joint_angles = np.deg2rad(joint_angles)
 
     # Smooth signals
     smooth = filter_signals(times=times, signals=joint_angles)
@@ -42,6 +45,8 @@ def get_animal_data(path):
         times=times,
         smooth_signals=smooth,
     )
+    freqs = freqs * ((1/6.5)**(0.5)) # Scale animal frequencies to match controller frequencies
+
 
     # IPL (between adjacent joints)
     inds = [[i, i+1] for i in range(7)]
@@ -56,7 +61,7 @@ def get_animal_data(path):
 
 def exercise2_3(**kwargs):
     """ex2.3 main"""
-    pylog.warning("TODO: 2.3 Analyze the provided animal data and compare the animal locomotion performance with your implemented controller.")
+    #pylog.warning("TODO: 2.3 Analyze the provided animal data and compare the animal locomotion performance with your implemented controller.")
     # pylog.set_level('critical')
 
     plot = kwargs.pop('plot', False)
@@ -108,6 +113,8 @@ freq_ctrl, _, amp_ctrl = compute_frequency_amplitude_fft(
     times=times,
     smooth_signals=smooth,
 )
+freq_ctrl = freq_ctrl[:8] # Only take the first 8 frequencies (one per joint)
+amp_ctrl = amp_ctrl[:8] # Only take the first 8 amplitudes (one per joint)
 
 inds = [[i, i+1] for i in range(7)]
 _, ipls_ctrl = compute_neural_phase_lags(
@@ -126,7 +133,8 @@ plt.title("Frequency comparison")
 plt.xlabel("Joint index")
 plt.ylabel("Frequency (Hz)")
 plt.legend()
-plt.savefig("results/freq.png")
+plt.savefig(os.path.join(PLOT_PATH, "freq.png"))
+
 
 plt.figure()
 plt.plot(amp_animal, 'o-', label='animal')
@@ -135,17 +143,17 @@ plt.title("Amplitude comparison")
 plt.xlabel("Joint index")
 plt.ylabel("Amplitude (rad)")
 plt.legend()
-plt.savefig("results/amp.png")
-
+plt.savefig(os.path.join(PLOT_PATH, "amp.png"))
 
 plt.figure()
-plt.plot(ipls_animal, 'o-', label='animal')
-plt.plot(ipls_ctrl, 's--', label='controller')
+plt.bar(0, ipls_animal, width=0.4, label='animal', align='edge')
+plt.bar(1, ipls_ctrl, width=-0.4, label='controller', align='edge')
 plt.title("IPL comparison")
 plt.xlabel("Segment")
 plt.ylabel("Phase lag (rad)")
 plt.legend()
-plt.savefig("results/ipl.png")
+plt.savefig(os.path.join(PLOT_PATH, "iplbar.png"))
+
 
 print("freq_ctrl:", freq_ctrl)
 print("amp_ctrl:", amp_ctrl)
