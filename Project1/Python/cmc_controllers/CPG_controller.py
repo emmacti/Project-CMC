@@ -161,17 +161,17 @@ class CPGNetwork(NeuralNetwork):
             i_rostral = 2 * k
             j_caudal = 2 * (k + 1)
             self.coupling_weights[i_rostral, j_caudal] = self.coupling_weights_rostral
-            self.phase_bias[i_rostral, j_caudal] = +pb_adj[k]
+            self.phase_bias[i_rostral, j_caudal] = -pb_adj[k]
             self.coupling_weights[j_caudal, i_rostral] = self.coupling_weights_caudal
-            self.phase_bias[j_caudal, i_rostral] = -pb_adj[k]
+            self.phase_bias[j_caudal, i_rostral] = +pb_adj[k]
 
             # Right chain
             i_rostral = 2 * k + 1
             j_caudal = 2 * (k + 1) + 1
             self.coupling_weights[i_rostral, j_caudal] = self.coupling_weights_rostral
-            self.phase_bias[i_rostral, j_caudal] = +pb_adj[k]
+            self.phase_bias[i_rostral, j_caudal] = -pb_adj[k]
             self.coupling_weights[j_caudal, i_rostral] = self.coupling_weights_caudal
-            self.phase_bias[j_caudal, i_rostral] = -pb_adj[k]
+            self.phase_bias[j_caudal, i_rostral] = +pb_adj[k]
 
         # Contralateral coupling between left and right oscillators at each body joint.
         # From left to right corresponds to +pi (phase of right lags by +pi).
