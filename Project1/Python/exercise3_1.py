@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
 
+import matplotlib
+matplotlib.use('Agg')
+
+import os
+import h5py
+import pickle
+import numpy as np
+import matplotlib.pyplot as plt
 import os
 import h5py
 import pickle
@@ -47,7 +55,7 @@ def main(**kwargs):
                 size=16),
         },
     }
-    w_ipsi = 10.0
+    w_ipsi = 3.0
     fast = kwargs.pop('fast', False)
     headless = kwargs.pop('headless', False)
 
@@ -55,6 +63,7 @@ def main(**kwargs):
 
     pylog.warning("TODO: 3.1 Compare the performance")
 
+    
     runsim(
         controller=controller,
         base_path=BASE_PATH,
@@ -67,7 +76,8 @@ def main(**kwargs):
         fast=fast,
         headless=headless,
     )
-
+    
+    print("START without sensory feedback")
     runsim(
         controller=controller,
         base_path=BASE_PATH,
@@ -80,6 +90,7 @@ def main(**kwargs):
         fast=fast,
         headless=headless,
     )
+    print("DONE")
 
 def exercise3_1(**kwargs):
     """ex3.1 main"""
