@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import matplotlib
+matplotlib.use('Agg')
 
 import os
 import pickle
@@ -53,7 +55,7 @@ def exercise3_2(**kwargs):
     """ex3.2 main"""
     pylog.warning("TODO: 3.2 Explore the effect of stretch feedback on the metrics.")
 
-    w_ipsi_range = np.linspace(0, 0, 5)
+    w_ipsi_range = np.linspace(-3, 17, 11)
 
     controller = {
         'loader': 'cmc_controllers.CPG_controller.CPGController',
@@ -94,4 +96,3 @@ def exercise3_2(**kwargs):
 
 if __name__ == '__main__':
     exercise3_2(plot=True)
-
