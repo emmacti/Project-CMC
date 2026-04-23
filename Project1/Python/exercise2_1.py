@@ -19,7 +19,19 @@ PLOT_PATH = 'results'
 
 
 def post_processing(base_path):
-    """Post processing"""
+    """
+    Q2.1 – Plot required signals for the first 5 seconds.
+
+    Uses:
+    - controller log (CPG phases/amplitudes + motor outputs)
+    - sim sensors (joint angles, link positions)
+
+    Produces:
+    - oscillator states (theta, r)
+    - muscle sum/difference (ML+MR, ML-MR)
+    - body joint angles
+    - CoM trajectory (XY)
+    """
     # Load HDF5
     sim_result = base_path + 'simulation.hdf5'
     with h5py.File(sim_result, "r") as f:
@@ -146,7 +158,11 @@ def post_processing(base_path):
     plt.tight_layout()
     plt.savefig(os.path.join(PLOT_PATH, "exercise2_1_com_traj_xy.png"), dpi=200)
 def main(**kwargs):
-    """Run exercise 2.1 simulation and post-processing pipeline."""
+    """
+    Q2.1 – Run the default CPG controller (Tab. params) and record a video.
+
+    Runs with fixed drives d_left=d_right=3.
+    """
     os.makedirs(PLOT_PATH, exist_ok=True)
     controller = {
         'loader': 'cmc_controllers.CPG_controller.CPGController',

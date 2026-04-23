@@ -98,14 +98,12 @@ class CPGNetwork(NeuralNetwork):
         self.coupling_weights_caudal = coupling_weights_caudal
         self.coupling_weights_contra = coupling_weights_contra
 
-        pylog.warning("TODO 3.1 stretch feedback")
         self.w_ipsi = kwargs.pop('w_ipsi', None)
 
-        pylog.warning("TODO 3.3 Disruption masks")
+        # Q3.3: disruption parameters
         self.disruption_p_sensors = kwargs.pop('disruption_p_sensors', 0.0)
         self.disruption_p_couplings = kwargs.pop('disruption_p_couplings', 0.0)
         self.random_seed = kwargs.pop('random_seed', 42)
-        np.random.seed(self.random_seed)
 
         # CPG controller parameters
         self.nominal_amplitudes = np.zeros(self.n_oscillators, dtype=float)
@@ -183,6 +181,34 @@ class CPGNetwork(NeuralNetwork):
             self.coupling_weights[right_idx, left_idx] = self.coupling_weights_contra
             self.phase_bias[right_idx, left_idx] = -np.pi
 
+        # ── Q3.3: Disruption masks ────────────────────────────────────────────
+        # Masks are sampled ONCE at init with a fixed seed and stay constant
+        # throughout the simulation (frozen disruption pattern).
+        rng = np.random.default_rng(self.random_seed)
+
+        # --- Sensor disruption mask (shape: n_body_joints) ---
+        # A sensor is muted where mask_value < disruption_p_sensors.
+        if float(self.disruption_p_sensors) > 0.0:
+            sensor_mask_vals = rng.uniform(0.0, 1.0, size=self.n_body_joints)
+            self.sensor_disruption_mask = sensor_mask_vals < float(self.disruption_p_sensors)
+        else:
+            self.sensor_disruption_mask = np.zeros(self.n_body_joints, dtype=bool)
+
+        # --- Coupling disruption mask (shape: n_osc × n_osc) ---
+        # Only ipsilateral rostral/caudal couplings can be removed;
+        # contralateral couplings are ALWAYS preserved (per assignment).
+        if float(self.disruption_p_couplings) > 0.0:
+            ipsi_only = np.zeros((self.n_oscillators, self.n_oscillators), dtype=bool)
+            for k in range(self.n_body_joints - 1):
+                ipsi_only[2 * k, 2 * (k + 1)] = True          # left rostral→caudal
+                ipsi_only[2 * (k + 1), 2 * k] = True          # left caudal→rostral
+                ipsi_only[2 * k + 1, 2 * (k + 1) + 1] = True  # right rostral→caudal
+                ipsi_only[2 * (k + 1) + 1, 2 * k + 1] = True  # right caudal→rostral
+
+            coupling_vals = rng.uniform(0.0, 1.0, size=(self.n_oscillators, self.n_oscillators))
+            disrupted = (coupling_vals < float(self.disruption_p_couplings)) & ipsi_only
+            self.coupling_weights[disrupted] = 0.0
+
         # drive (constant in project 1)
         self.drive_left = drive_left
         self.drive_right = drive_right
@@ -223,6 +249,10 @@ class CPGNetwork(NeuralNetwork):
             #   theta(right) = max(0, -theta)
             s_left = self.w_ipsi * np.maximum(0.0, stretch_value)
             s_right = self.w_ipsi * np.maximum(0.0, -stretch_value)
+
+            # Q3.3: muted sensors -> zero stretch feedback for those joints
+            s_left = np.where(self.sensor_disruption_mask, 0.0, s_left)
+            s_right = np.where(self.sensor_disruption_mask, 0.0, s_right)
 
             # Interleave to match oscillator indexing (even=left, odd=right).
             s = np.empty(self.n_oscillators, dtype=float)

@@ -94,7 +94,16 @@ def get_metrics(twl, amp):
 
 
 def exercise1_2(**kwargs):
-    """ex1.2 main"""
+    """
+    Q1.2 (extended) – Sweep WaveController parameters and visualize performance.
+
+    Runs a grid over:
+    - amplitude A ∈ [1, 4]
+    - total wave lag TWL ∈ [0.2, 1.5]
+    with frequency fixed at f=1.5 Hz.
+
+    Saves heatmaps to `results/`.
+    """
     os.makedirs(PLOT_PATH, exist_ok=True)
     base_controller = {
         'loader': 'cmc_controllers.wave_controller.WaveController',

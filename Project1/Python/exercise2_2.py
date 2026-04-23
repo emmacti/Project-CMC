@@ -61,6 +61,18 @@ def load_metrics_from_hdf5(hdf5_path):
 
 
 def exercise2_2(**kwargs):
+    """
+    Q2.2 – Explore how CPG parameters affect swimming performance.
+
+    Part 1 (2D grid):
+    - drive d (applied equally to left/right via `simulate.runsim(drive=...)`)
+    - phase bias PL (adjacent-joint phase lag)
+    Outputs: speed, CoT, IPL_neur, and a simple phase-locking error.
+
+    Part 2 (2D grid):
+    - differential drive d_left vs d_right
+    Output: curvature + example trajectories.
+    """
     # Parameter investigation (Question 2.2)
     plot = kwargs.pop('plot', False)
 
@@ -315,7 +327,7 @@ def exercise2_2(**kwargs):
                 BASE_PATH,
                 f"simulation_drive_left{_token(d_left)}_drive_right{_token(d_right)}.hdf5",
             )
-            curvature, _com_xy = _load_curvature_and_com(hdf5_path)
+            curvature, com_xy = _load_curvature_and_com(hdf5_path)
             curvature_map[i_left, i_right] = curvature
 
     plt.figure(figsize=(6, 4.5))
