@@ -15,6 +15,14 @@ Preliminary "what-do-you-observe" run: mixed disruption at 20% (single seed).
 
 For reproducibility each (setup, disruption type, probability) is run with
 N_SEEDS seeds and results are averaged.
+
+Code mapping to the assignment:
+- Part A (Q3.3 observation): `run_observation()` runs the 20% mixed-disruption cases
+  and saves qualitative joint-angle + CoM trajectory plots.
+- Part B (Q3.3 ablation): `run_ablation_sweep()` runs the full probability sweep
+  for (combined/decoupled) × (muted/removed/mixed) × seeds.
+- Analysis: `collect_ablation_metrics()` + `plot_ablation()` compute/plot speed and CoT
+  vs disruption probability.
 """
 
 import os

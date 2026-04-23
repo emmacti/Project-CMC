@@ -24,7 +24,18 @@ PLOT_PATH = 'results'
 
 
 def post_processing():
-    """Post processing"""
+    """
+    Q1.2 – Metrics + plots on the WaveController run.
+
+    Loads `logs/exercise1_1/simulation.hdf5` and `controller.pkl`, computes:
+    - NM1: neural frequency + amplitude (FFT)
+    - NM2: intersegmental phase lag (IPL_neur)
+    - MM2: forward/lateral speed
+    - MM4: energy + CoT
+    Then saves:
+    - joint-angle time series (few cycles)
+    - CoM trajectory (XY)
+    """
     # Load HDF5
     sim_result = BASE_PATH + 'simulation.hdf5'
     with h5py.File(sim_result, "r") as f:
@@ -127,7 +138,11 @@ def post_processing():
 
 
 def main(**kwargs):
-    """ex1.1 main"""
+    """
+    Q1.1 – Run WaveController with A=2, f=2Hz, TWL=1 and record a video.
+
+    Output logs go to `logs/exercise1_1/`.
+    """
     os.makedirs(PLOT_PATH, exist_ok=True)
     controller = {
         'loader': 'cmc_controllers.wave_controller.WaveController',

@@ -29,9 +29,136 @@ from simulate import runsim
 BASE_PATH = 'logs/exercise3_1/'
 PLOT_PATH = 'results'
 
+def _load_sim(hdf5_path: str):
+    with h5py.File(hdf5_path, "r") as f:
+        times = f['times'][:]
+        links = f['FARMSLISTanimats']['0']['sensors']['links']['array'][:]
+        joints = f['FARMSLISTanimats']['0']['sensors']['joints']['array'][:]
+    links_pos = links[:, :, 7:10]
+    links_vel = links[:, :, 14:17]
+    joints_pos = joints[:, :, 0]
+    joints_vel = joints[:, :, 1]
+    joints_tau = joints[:, :, 2]
+    return times, links_pos, links_vel, joints_pos, joints_vel, joints_tau
+
+
+def _load_controller_state(pkl_path: str):
+    with open(pkl_path, "rb") as f:
+        controller_data = pickle.load(f)
+    state = controller_data["state"]
+    n_total = state.shape[1]
+    if n_total % 3 != 0:
+        raise ValueError(f"Unexpected controller state width={n_total}, expected multiple of 3.")
+    n_osc = n_total // 3
+    phases = state[:, :n_osc]
+    amps = state[:, n_osc:2*n_osc]
+    motor_storage = state[:, 2*n_osc:3*n_osc]
+    motor_left = motor_storage[:, 0::2]
+    motor_right = motor_storage[:, 1::2]
+    neural = motor_left - motor_right
+    return phases, amps, motor_left, motor_right, neural
+
+
+def _metrics_for_case(hdf5_path: str, controller_pkl: str):
+    times, links_pos, links_vel, _jp, jv, jt = _load_sim(hdf5_path)
+    phases, amps, ml, mr, neural = _load_controller_state(controller_pkl)
+
+    neural_s = filter_signals(times=times, signals=neural)
+    freqs, _, amps_neur = compute_frequency_amplitude_fft(times=times, smooth_signals=neural_s)
+
+    speed_fwd, _speed_lat = compute_mechanical_speed(links_positions=links_pos, links_velocities=links_vel)
+    _energy, cot = compute_mechanical_energy_and_cot(
+        times=times,
+        links_positions=links_pos,
+        joints_torques=jt,
+        joints_velocities=jv,
+    )
+    return {
+        "times": times,
+        "phases": phases,
+        "amps": amps,
+        "ml": ml,
+        "mr": mr,
+        "neural": neural,
+        "freqs": freqs,
+        "amps_neur": amps_neur,
+        "speed_fwd": float(speed_fwd),
+        "cot": float(cot),
+    }
+
+
+def _plot_case(prefix: str, m: dict, max_seconds: float = 5.0, n_joints_plot: int = 3):
+    os.makedirs(PLOT_PATH, exist_ok=True)
+    t = m["times"]
+    mask = t <= (t[0] + max_seconds)
+
+    phases = m["phases"]
+    amps = m["amps"]
+    ml = m["ml"]
+    mr = m["mr"]
+    neural = m["neural"]
+
+    # Plot theta and r for first joints (interleaved oscillators)
+    plt.figure(figsize=(9, 4))
+    for j in range(n_joints_plot):
+        plt.plot(t[mask], phases[mask, 2*j], label=f"theta L joint {j}")
+        plt.plot(t[mask], phases[mask, 2*j+1], ls="--", label=f"theta R joint {j}")
+    plt.xlabel("time (s)")
+    plt.ylabel("theta (rad)")
+    plt.title(f"{prefix}: oscillator phases (first {max_seconds:.0f}s)")
+    plt.legend(fontsize=8, ncol=2)
+    plt.tight_layout()
+    plt.savefig(os.path.join(PLOT_PATH, f"{prefix}_theta.png"), dpi=200)
+    plt.close()
+
+    plt.figure(figsize=(9, 4))
+    for j in range(n_joints_plot):
+        plt.plot(t[mask], amps[mask, 2*j], label=f"r L joint {j}")
+        plt.plot(t[mask], amps[mask, 2*j+1], ls="--", label=f"r R joint {j}")
+    plt.xlabel("time (s)")
+    plt.ylabel("r")
+    plt.title(f"{prefix}: oscillator amplitudes (first {max_seconds:.0f}s)")
+    plt.legend(fontsize=8, ncol=2)
+    plt.tight_layout()
+    plt.savefig(os.path.join(PLOT_PATH, f"{prefix}_r.png"), dpi=200)
+    plt.close()
+
+    # Sum/diff muscle outputs from motor storage
+    m_sum = ml + mr
+
+    plt.figure(figsize=(9, 4))
+    for j in range(n_joints_plot):
+        plt.plot(t[mask], m_sum[mask, j], label=f"ML+MR joint {j}")
+    plt.xlabel("time (s)")
+    plt.ylabel("ML+MR")
+    plt.title(f"{prefix}: muscle output sum (first {max_seconds:.0f}s)")
+    plt.legend(fontsize=8, ncol=2)
+    plt.tight_layout()
+    plt.savefig(os.path.join(PLOT_PATH, f"{prefix}_muscle_sum.png"), dpi=200)
+    plt.close()
+
+    plt.figure(figsize=(9, 4))
+    for j in range(n_joints_plot):
+        plt.plot(t[mask], neural[mask, j], label=f"ML-MR joint {j}")
+    plt.xlabel("time (s)")
+    plt.ylabel("ML-MR")
+    plt.title(f"{prefix}: muscle output difference (first {max_seconds:.0f}s)")
+    plt.legend(fontsize=8, ncol=2)
+    plt.tight_layout()
+    plt.savefig(os.path.join(PLOT_PATH, f"{prefix}_muscle_diff.png"), dpi=200)
+    plt.close()
+
 
 def main(**kwargs):
-    """Run exercise 3.1 simulations with and without sensory feedback."""
+    """
+    Q3.1 – Stretch feedback ablation (with vs without sensory feedback).
+
+    Runs:
+    - with stretch feedback: w_ipsi = 3.0
+    - without stretch feedback: w_ipsi = 0.0
+
+    Then post-processes the two runs to produce the plots/metrics requested in Q3.1.
+    """
     controller = {
         'loader': 'cmc_controllers.CPG_controller.CPGController',
         'config': {
@@ -58,10 +185,6 @@ def main(**kwargs):
     w_ipsi = 3.0
     fast = kwargs.pop('fast', False)
     headless = kwargs.pop('headless', False)
-
-    pylog.warning("TODO: 3.1 Simulate with and without sensory feedback")
-
-    pylog.warning("TODO: 3.1 Compare the performance")
 
     
     runsim(
@@ -91,6 +214,24 @@ def main(**kwargs):
         headless=headless,
     )
     print("DONE")
+
+    # Post-process: required plots + metrics
+    os.makedirs(PLOT_PATH, exist_ok=True)
+    with_sf = _metrics_for_case(
+        hdf5_path=os.path.join(BASE_PATH, "simulation_with_sf.hdf5"),
+        controller_pkl=os.path.join(BASE_PATH, "controller_with_sf.pkl"),
+    )
+    without_sf = _metrics_for_case(
+        hdf5_path=os.path.join(BASE_PATH, "simulation_without_sf.hdf5"),
+        controller_pkl=os.path.join(BASE_PATH, "controller_without_sf.pkl"),
+    )
+
+    _plot_case("exercise3_1_with_sf", with_sf)
+    _plot_case("exercise3_1_without_sf", without_sf)
+
+    print("\nMetrics comparison (Q3.1)")
+    print(f"  with SF   : speed_fwd={with_sf['speed_fwd']:.4f} m/s, CoT={with_sf['cot']:.4f}")
+    print(f"  without SF: speed_fwd={without_sf['speed_fwd']:.4f} m/s, CoT={without_sf['cot']:.4f}")
 
 def exercise3_1(**kwargs):
     """ex3.1 main"""
