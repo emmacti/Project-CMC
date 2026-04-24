@@ -254,7 +254,9 @@ def run_observation():
         ax.set_title(name.replace('_', ' '), fontsize=9)
         ax.set_xlabel('x (m)')
         ax.set_ylabel('y (m)')
-        ax.axis('equal')
+        # Limit x only; keep default aspect/y autoscaling to avoid "thin" plots.
+        ax.set_xlim(-0.2, 0.2)
+        
 
     fig.suptitle('Q3.3 – CoM trajectory: no disruption vs 20% mixed disruption',
                  fontsize=10)

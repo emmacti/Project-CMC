@@ -1,0 +1,7 @@
+numpy
+nptyping
+scipy
+matplotlib
+tqdm
+cython
+git+https://gitlab.com/FARMSIM/farms_pylog.git
