@@ -1,3 +1,7 @@
 /Project1/Python/logs
 .vscode/settings.json
 /compmctrl
+
+# Local reference figures (not source)
+/old figure/
+/old_figure/

@@ -151,20 +151,46 @@ def exercise3_2(**kwargs):
         neur_amp_mean[i] = float(np.mean(amps))
 
     # Plots: metrics vs w_ipsi (Q3.2)
-    def _plot(y, ylabel, fname):
-        plt.figure(figsize=(6.5, 4))
-        plt.plot(w_ipsi_range, y, 'o-', lw=1.8)
-        plt.xlabel(r'$w^{ipsi}$')
-        plt.ylabel(ylabel)
-        plt.grid(True, alpha=0.25)
-        plt.tight_layout()
-        plt.savefig(os.path.join(PLOT_PATH, fname), dpi=200)
-        plt.close()
+    # Old-style summary figure: 2x2 subplots in a single image (matches old filename)
+    fig, axes = plt.subplots(2, 2, figsize=(12, 9), sharex=True)
+    fig.suptitle(
+        'Q3.2 – Effect of stretch feedback gain w_ipsi on locomotion metrics',
+        fontsize=11,
+    )
 
-    _plot(speed, 'Forward speed (m/s)', 'exercise3_2_speed_vs_wipsi.png')
-    _plot(cot, 'CoT (J/m)', 'exercise3_2_cot_vs_wipsi.png')
-    _plot(neur_freq_mean, 'Mean neural frequency (Hz)', 'exercise3_2_neur_freq_vs_wipsi.png')
-    _plot(neur_amp_mean, 'Mean neural amplitude', 'exercise3_2_neur_amp_vs_wipsi.png')
+    def _style(ax):
+        ax.grid(True, alpha=0.25)
+        ax.axvline(0.0, color='0.35', ls=':', lw=1.0, label='no feedback')
+        ax.legend(fontsize=8, loc='best')
+        ax.set_xlabel('w_ipsi')
+
+    ax = axes[0, 0]
+    ax.plot(w_ipsi_range, speed, 'o-', color='tab:blue', lw=1.8)
+    ax.set_title('Forward speed vs w_ipsi', fontsize=10)
+    ax.set_ylabel('Forward speed (m/s)')
+    _style(ax)
+
+    ax = axes[0, 1]
+    ax.plot(w_ipsi_range, cot, 'o-', color='tab:red', lw=1.8)
+    ax.set_title('Cost of Transport vs w_ipsi', fontsize=10)
+    ax.set_ylabel('CoT (J/m)')
+    _style(ax)
+
+    ax = axes[1, 0]
+    ax.plot(w_ipsi_range, neur_freq_mean, 'o-', color='tab:green', lw=1.8)
+    ax.set_title('Neural frequency vs w_ipsi', fontsize=10)
+    ax.set_ylabel('Mean neural frequency (Hz)')
+    _style(ax)
+
+    ax = axes[1, 1]
+    ax.plot(w_ipsi_range, neur_amp_mean, 'o-', color='tab:purple', lw=1.8)
+    ax.set_title('Neural amplitude vs w_ipsi', fontsize=10)
+    ax.set_ylabel('Mean neural amplitude')
+    _style(ax)
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(PLOT_PATH, 'ex3_2_wipsi_sweep.png'), dpi=200)
+    plt.close()
 
     plot = kwargs.pop('plot', False)
     if plot:
