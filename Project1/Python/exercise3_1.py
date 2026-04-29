@@ -436,7 +436,7 @@ def main(**kwargs):
     )
     print("DONE")
 
-    # Post-process: required plots + metrics
+    # Post-process: 
     os.makedirs(PLOT_PATH, exist_ok=True)
     with_sf = _metrics_for_case(
         hdf5_path=os.path.join(BASE_PATH, "simulation_with_sf.hdf5"),
@@ -447,7 +447,6 @@ def main(**kwargs):
         controller_pkl=os.path.join(BASE_PATH, "controller_without_sf.pkl"),
     )
 
-    # Old-style plots: one figure per metric with two subplots (with vs without SF)
     _plot_comparison(with_sf=with_sf, without_sf=without_sf)
     _plot_q31_missing_figures(with_sf=with_sf, without_sf=without_sf)
 

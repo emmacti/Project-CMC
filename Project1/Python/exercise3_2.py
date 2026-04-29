@@ -151,7 +151,6 @@ def exercise3_2(**kwargs):
         neur_amp_mean[i] = float(np.mean(amps))
 
     # Plots: metrics vs w_ipsi (Q3.2)
-    # Old-style summary figure: 2x2 subplots in a single image (matches old filename)
     fig, axes = plt.subplots(2, 2, figsize=(12, 9), sharex=True)
     fig.suptitle(
         'Q3.2 – Effect of stretch feedback gain w_ipsi on locomotion metrics',

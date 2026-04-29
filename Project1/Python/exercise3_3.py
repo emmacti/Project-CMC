@@ -285,7 +285,7 @@ SETUPS = {
     'decoupled': dict(coupling_rostral=0.0,         coupling_caudal=0.0),
 }
 
-# Disruption types (Tab. 2)
+# Disruption types
 DISRUPTION_TYPES = {
     'muted_sensors':     lambda p: dict(p_s=p,   p_c=0.0),
     'removed_couplings': lambda p: dict(p_s=0.0, p_c=p),

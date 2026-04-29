@@ -99,7 +99,7 @@ def exercise2_3(**kwargs):
     os.makedirs(BASE_PATH, exist_ok=True)
     os.makedirs(PLOT_PATH, exist_ok=True)
 
-    # Run one controller simulation (you can tune parameters for the BONUS part)
+    # Run one controller simulation 
     controller = {
         'loader': 'cmc_controllers.CPG_controller.CPGController',
         'config': {
@@ -158,9 +158,9 @@ def exercise2_3(**kwargs):
     plt.close()
 
     plt.figure(figsize=(7, 4))
-    plt.plot(a_ipls, 'o-', label='animal IPL (adjacent)')
+    plt.bar(0, a_ipls, label='animal IPL (adjacent)')
     # controller: show mean IPL as a line (we keep it simple for now)
-    plt.axhline(ctrl["ipls_mean"], color='tab:orange', ls='--', label='controller mean IPL')
+    plt.bar(1,ctrl["ipls_mean"], color='tab:orange', label='controller mean IPL')
     plt.title("Q2.3 IPL comparison")
     plt.xlabel("Segment pair index (i,i+1)")
     plt.ylabel("Phase lag (rad)")
