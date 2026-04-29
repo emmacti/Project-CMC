@@ -273,10 +273,12 @@ class CPGNetwork(NeuralNetwork):
         )
 
         # Stretch feedback phase correction: -(s_i/r_i) sin(theta_i)
-        stretch_phase_term = np.where(
-            amplitudes > eps,
-            (s / amplitudes) * np.sin(phases),
-            0.0,
+        stretch_phase_term = np.zeros_like(amplitudes)
+        np.divide(
+            s * np.sin(phases),
+            amplitudes,
+            out=stretch_phase_term,
+            where=amplitudes > eps,
         )
 
         theta_dot = 2.0 * np.pi * self.nominal_frequencies + coupling - stretch_phase_term
