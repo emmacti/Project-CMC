@@ -1,0 +1,18 @@
+simulation: cmc_project_pack/configs/simulation_config.yaml
+animats:
+- cmc_project_pack/configs/animat_config.yaml
+arenas:
+- cmc_project_pack/configs/arena_flat_config.yaml
+loaders:
+  simulation_options: farms_core.simulation.options.SimulationOptions
+  animats_options:
+  - farms_amphibious.model.options.AmphibiousOptions
+  # - cmc_controllers.neural_options.NeuralOptions
+  # - cmc_controllers.neural_options.NeuralOptions
+  arenas_options:
+  - farms_amphibious.model.options.AmphibiousArenaOptions
+  experiment_data: farms_amphibious.data.data.AmphibiousExperimentData
+  animats_data:
+  # - farms_amphibious.data.data.AmphibiousData
+  # - cmc_controllers.neural_data.NeuralData
+  - salamandra_simulation.data.SalamandraData

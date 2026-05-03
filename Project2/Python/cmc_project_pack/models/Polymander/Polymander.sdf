@@ -1,0 +1,885 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+	<world name="world">
+		<model name="Polymander_v6.2.1">
+			<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+			<link name="link_body_00">
+				<pose>0 0 0 0 0 0</pose>
+				<inertial>
+					<pose>0.0874556 0.00118105 0.00195082 0 0 0</pose>
+					<mass>0.328768</mass>
+					<density>1276.43</density>
+					<inertia>
+						<ixx>0.000134798</ixx>
+						<ixy>7.4325e-07</ixy>
+						<ixz>1.21979e-05</ixz>
+						<iyy>0.000636069</iyy>
+						<iyz>6.57418e-06</iyz>
+						<izz>0.000609213</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_body_00_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_00_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_body_00_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_00.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_body_01">
+				<pose>0.146464 0 -0.00025 0 0 0</pose>
+				<inertial>
+					<pose>0.0574897 9.68358e-07 0.000163447 0 0 0</pose>
+					<mass>0.274101</mass>
+					<density>1705.28</density>
+					<inertia>
+						<ixx>0.000194628</ixx>
+						<ixy>-8.1281e-11</ixy>
+						<ixz>-6.20009e-07</ixz>
+						<iyy>0.00011846</iyy>
+						<iyz>4.35548e-11</iyz>
+						<izz>0.000226475</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_body_01_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_01_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_body_01_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_01.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_body_02">
+				<pose>0.261764 0 -0.00025 0 0 0</pose>
+				<inertial>
+					<pose>0.0190111 2.10883e-11 -0.000412905 0 0 0</pose>
+					<mass>0.107688</mass>
+					<density>1955.69</density>
+					<inertia>
+						<ixx>2.18349e-05</ixx>
+						<ixy>-2.87156e-14</ixy>
+						<ixz>-3.3165e-07</ixz>
+						<iyy>5.20956e-05</iyy>
+						<iyz>-3.09053e-12</iyz>
+						<izz>4.40876e-05</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_body_02_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_02_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_body_02_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_02.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_body_03">
+				<pose>0.330364 0 -0.00025 0 0 0</pose>
+				<inertial>
+					<pose>0.0190111 2.10883e-11 -0.000412905 0 0 0</pose>
+					<mass>0.107688</mass>
+					<density>1955.69</density>
+					<inertia>
+						<ixx>2.18349e-05</ixx>
+						<ixy>-2.87156e-14</ixy>
+						<ixz>-3.3165e-07</ixz>
+						<iyy>5.20956e-05</iyy>
+						<iyz>-3.09053e-12</iyz>
+						<izz>4.40876e-05</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_body_03_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_03_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_body_03_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_03.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_body_04">
+				<pose>0.398964 0 -0.00025 0 0 0</pose>
+				<inertial>
+					<pose>0.0190111 2.10883e-11 -0.000412905 0 0 0</pose>
+					<mass>0.107688</mass>
+					<density>1955.69</density>
+					<inertia>
+						<ixx>2.18349e-05</ixx>
+						<ixy>-2.87156e-14</ixy>
+						<ixz>-3.3165e-07</ixz>
+						<iyy>5.20956e-05</iyy>
+						<iyz>-3.09053e-12</iyz>
+						<izz>4.40876e-05</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_body_04_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_04_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_body_04_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_04.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_body_05">
+				<pose>0.467564 0 -0.00025 0 0 0</pose>
+				<inertial>
+					<pose>0.0494303 -4.54816e-06 -8.19532e-05 0 0 0</pose>
+					<mass>0.321614</mass>
+					<density>1821.14</density>
+					<inertia>
+						<ixx>0.000195584</ixx>
+						<ixy>2.2803e-08</ixy>
+						<ixz>-1.36018e-06</ixz>
+						<iyy>0.000245362</iyy>
+						<iyz>1.97283e-09</iyz>
+						<izz>0.000358215</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_body_05_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_05_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_body_05_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_05.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_body_06">
+				<pose>0.553364 0 -0.00025 0 0 0</pose>
+				<inertial>
+					<pose>0.0171753 5.68356e-11 0.000179224 0 0 0</pose>
+					<mass>0.0433459</mass>
+					<density>1667.04</density>
+					<inertia>
+						<ixx>1.12532e-05</ixx>
+						<ixy>1.84022e-14</ixy>
+						<ixz>1.42377e-08</ixz>
+						<iyy>1.36167e-05</iyy>
+						<iyz>-3.08705e-12</iyz>
+						<izz>8.27548e-06</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_body_06_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_06_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_body_06_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_06.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_body_07">
+				<pose>0.600764 0 -0.00025 0 0 0</pose>
+				<inertial>
+					<pose>0.0190111 2.10883e-11 -0.000412905 0 0 0</pose>
+					<mass>0.107688</mass>
+					<density>1955.69</density>
+					<inertia>
+						<ixx>2.18349e-05</ixx>
+						<ixy>-2.87156e-14</ixy>
+						<ixz>-3.3165e-07</ixz>
+						<iyy>5.20956e-05</iyy>
+						<iyz>-3.09053e-12</iyz>
+						<izz>4.40876e-05</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_body_07_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_07_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_body_07_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_07.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_body_08">
+				<pose>0.669364 0 -0.00025 0 0 0</pose>
+				<inertial>
+					<pose>0.0190111 2.10883e-11 -0.000412905 0 0 0</pose>
+					<mass>0.107688</mass>
+					<density>1955.69</density>
+					<inertia>
+						<ixx>2.18349e-05</ixx>
+						<ixy>-2.87156e-14</ixy>
+						<ixz>-3.3165e-07</ixz>
+						<iyy>5.20956e-05</iyy>
+						<iyz>-3.09053e-12</iyz>
+						<izz>4.40876e-05</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_body_08_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_08_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_body_08_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_08.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_body_09">
+				<pose>0.737965 0 -0.00025 0 0 0</pose>
+				<inertial>
+					<pose>0.0289981 5.51015e-05 -0.000259858 0 0 0</pose>
+					<mass>0.164651</mass>
+					<density>1329.71</density>
+					<inertia>
+						<ixx>5.36951e-05</ixx>
+						<ixy>-1.31712e-07</ixy>
+						<ixz>-7.1426e-07</ixz>
+						<iyy>0.000114635</iyy>
+						<iyz>2.5573e-07</iyz>
+						<izz>9.66059e-05</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_body_09_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_09_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_body_09_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_09.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_body_10">
+				<pose>0.806215 0 -0.00025 0 0 0</pose>
+				<inertial>
+					<pose>0.110208 1.52813e-11 -0.000247837 0 0 0</pose>
+					<mass>0.18959</mass>
+					<density>1224.67</density>
+					<inertia>
+						<ixx>3.50341e-05</ixx>
+						<ixy>8.38133e-14</ixy>
+						<ixz>1.43151e-05</ixz>
+						<iyy>0.0012226</iyy>
+						<iyz>2.61695e-13</iyz>
+						<izz>0.00119837</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_body_10_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_10_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_body_10_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_body_10.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_leg_0_L_0">
+				<pose>0.204114 -0.038 -0.00025 0 0 0</pose>
+				<inertial>
+					<pose>-0.00143781 -0.0216908 -0.00185518 0 0 0</pose>
+					<mass>0.0194482</mass>
+					<density>1165.24</density>
+					<inertia>
+						<ixx>9.53517e-06</ixx>
+						<ixy>-5.75394e-07</ixy>
+						<ixz>-2.49215e-07</ixz>
+						<iyy>8.34481e-06</iyy>
+						<iyz>-2.10063e-06</iyz>
+						<izz>9.20573e-06</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_leg_0_L_0_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_leg_0_L_0_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_leg_0_L_0_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_leg_0_L_0.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_leg_0_L_1">
+				<pose>0.204114 -0.0795 -0.01025 0 0 0</pose>
+				<inertial>
+					<pose>0.000271374 -0.0359908 -0.00183955 0 0 0</pose>
+					<mass>0.164364</mass>
+					<density>1222.76</density>
+					<inertia>
+						<ixx>0.00020176</ixx>
+						<ixy>-1.05974e-06</ixy>
+						<ixz>-6.45828e-08</ixz>
+						<iyy>5.05393e-05</iyy>
+						<iyz>-2.00942e-05</iyz>
+						<izz>0.000195697</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_leg_0_L_1_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_leg_0_L_1_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_leg_0_L_1_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_leg_0_L_1.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_leg_0_R_0">
+				<pose>0.204114 0.038 -0.00025 0 0 0</pose>
+				<inertial>
+					<pose>0.00143781 0.0216908 -0.00185518 0 0 0</pose>
+					<mass>0.0194482</mass>
+					<density>1165.57</density>
+					<inertia>
+						<ixx>9.53517e-06</ixx>
+						<ixy>-5.75391e-07</ixy>
+						<ixz>2.49214e-07</ixz>
+						<iyy>8.34481e-06</iyy>
+						<iyz>2.10064e-06</iyz>
+						<izz>9.20573e-06</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_leg_0_R_0_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_leg_0_R_0_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_leg_0_R_0_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_leg_0_R_0.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_leg_0_R_1">
+				<pose>0.204114 0.0795 -0.01025 0 0 0</pose>
+				<inertial>
+					<pose>-0.000271374 0.0359908 -0.00183955 0 0 0</pose>
+					<mass>0.164364</mass>
+					<density>1222.69</density>
+					<inertia>
+						<ixx>0.00020176</ixx>
+						<ixy>-1.05974e-06</ixy>
+						<ixz>6.45828e-08</ixz>
+						<iyy>5.05393e-05</iyy>
+						<iyz>2.00942e-05</iyz>
+						<izz>0.000195697</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_leg_0_R_1_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_leg_0_R_1_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_leg_0_R_1_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_leg_0_R_1.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_leg_1_L_0">
+				<pose>0.532614 -0.038 -0.00025 0 0 0</pose>
+				<inertial>
+					<pose>-0.00143781 -0.0216908 -0.00185518 0 0 0</pose>
+					<mass>0.0194482</mass>
+					<density>1165.24</density>
+					<inertia>
+						<ixx>9.53517e-06</ixx>
+						<ixy>-5.75394e-07</ixy>
+						<ixz>-2.49217e-07</ixz>
+						<iyy>8.34481e-06</iyy>
+						<iyz>-2.10063e-06</iyz>
+						<izz>9.20573e-06</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_leg_1_L_0_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_leg_1_L_0_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_leg_1_L_0_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_leg_1_L_0.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_leg_1_L_1">
+				<pose>0.532614 -0.0795 -0.01025 0 0 0</pose>
+				<inertial>
+					<pose>0.000311355 -0.0358733 -0.00179593 0 0 0</pose>
+					<mass>0.164364</mass>
+					<density>1225.5</density>
+					<inertia>
+						<ixx>0.000201757</ixx>
+						<ixy>-7.46628e-07</ixy>
+						<ixz>-4.22467e-08</ixz>
+						<iyy>5.0421e-05</iyy>
+						<iyz>-1.99494e-05</iyz>
+						<izz>0.000195818</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_leg_1_L_1_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_leg_1_L_1_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_leg_1_L_1_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_leg_1_L_1.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_leg_1_R_0">
+				<pose>0.532614 0.038 -0.00025 0 0 0</pose>
+				<inertial>
+					<pose>0.00143781 0.0216908 -0.00185518 0 0 0</pose>
+					<mass>0.0194482</mass>
+					<density>1165.57</density>
+					<inertia>
+						<ixx>9.53517e-06</ixx>
+						<ixy>-5.75391e-07</ixy>
+						<ixz>2.49214e-07</ixz>
+						<iyy>8.34481e-06</iyy>
+						<iyz>2.10064e-06</iyz>
+						<izz>9.20573e-06</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_leg_1_R_0_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_leg_1_R_0_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_leg_1_R_0_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_leg_1_R_0.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<link name="link_leg_1_R_1">
+				<pose>0.532614 0.0795 -0.01025 0 0 0</pose>
+				<inertial>
+					<pose>-0.00023359 0.0358733 -0.00180347 0 0 0</pose>
+					<mass>0.164364</mass>
+					<density>1224.74</density>
+					<inertia>
+						<ixx>0.000201777</ixx>
+						<ixy>-1.41312e-06</ixy>
+						<ixz>1.44843e-07</ixz>
+						<iyy>5.04478e-05</iyy>
+						<iyz>2.00098e-05</iyz>
+						<izz>0.000195825</izz>
+					</inertia>
+				</inertial>
+				<collision name="link_leg_1_R_1_collision">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_leg_1_R_1_collision.stl</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</collision>
+				<visual name="link_leg_1_R_1_visual">
+					<pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+					<geometry>
+						<mesh>
+							<uri>meshes/link_leg_1_R_1.obj</uri>
+							<scale>0.001 0.001 0.001</scale>
+						</mesh>
+					</geometry>
+				</visual>
+			</link>
+			<joint name="joint_body_00" type="revolute">
+				<parent>link_body_00</parent>
+				<child>link_body_01</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>0.0 0.0 1.0</xyz>
+					<limit>
+						<lower>-1.5708</lower>
+						<upper>1.5708</upper>
+					</limit>
+				</axis>
+			</joint>
+			<joint name="joint_body_01" type="revolute">
+				<parent>link_body_01</parent>
+				<child>link_body_02</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>0.0 0.0 1.0</xyz>
+					<limit>
+						<lower>-1.5708</lower>
+						<upper>1.5708</upper>
+					</limit>
+				</axis>
+			</joint>
+			<joint name="joint_body_02" type="revolute">
+				<parent>link_body_02</parent>
+				<child>link_body_03</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>0.0 0.0 1.0</xyz>
+					<limit>
+						<lower>-1.5708</lower>
+						<upper>1.5708</upper>
+					</limit>
+				</axis>
+			</joint>
+			<joint name="joint_body_03" type="revolute">
+				<parent>link_body_03</parent>
+				<child>link_body_04</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>0.0 0.0 1.0</xyz>
+					<limit>
+						<lower>-1.5708</lower>
+						<upper>1.5708</upper>
+					</limit>
+				</axis>
+			</joint>
+			<joint name="joint_body_04" type="revolute">
+				<parent>link_body_04</parent>
+				<child>link_body_05</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>0.0 0.0 1.0</xyz>
+					<limit>
+						<lower>-1.5708</lower>
+						<upper>1.5708</upper>
+					</limit>
+				</axis>
+			</joint>
+			<joint name="joint_body_05_passive" type="revolute">
+				<parent>link_body_05</parent>
+				<child>link_body_06</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>0.0 1.0 0.0</xyz>
+					<limit>
+						<lower>-0.401426</lower>
+						<upper>0.401426</upper>
+					</limit>
+				</axis>
+			</joint>
+			<joint name="joint_body_06" type="revolute">
+				<parent>link_body_06</parent>
+				<child>link_body_07</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>0.0 0.0 1.0</xyz>
+					<limit>
+						<lower>-1.5708</lower>
+						<upper>1.5708</upper>
+					</limit>
+				</axis>
+			</joint>
+			<joint name="joint_body_07" type="revolute">
+				<parent>link_body_07</parent>
+				<child>link_body_08</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>0.0 0.0 1.0</xyz>
+					<limit>
+						<lower>-1.5708</lower>
+						<upper>1.5708</upper>
+					</limit>
+				</axis>
+			</joint>
+			<joint name="joint_body_08" type="revolute">
+				<parent>link_body_08</parent>
+				<child>link_body_09</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>0.0 0.0 1.0</xyz>
+					<limit>
+						<lower>-1.5708</lower>
+						<upper>1.5708</upper>
+					</limit>
+				</axis>
+			</joint>
+			<joint name="joint_body_09_passive" type="revolute">
+				<parent>link_body_09</parent>
+				<child>link_body_10</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>0.0 1.0 0.0</xyz>
+					<limit>
+						<lower>-0.401426</lower>
+						<upper>0.401426</upper>
+					</limit>
+				</axis>
+			</joint>
+			<joint name="joint_leg_1_L_0" type="revolute">
+				<parent>link_body_05</parent>
+				<child>link_leg_1_L_0</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>0.0 0.0 -1.0</xyz>
+					<limit>
+						<lower>-1.27409</lower>
+						<upper>1.27409</upper>
+					</limit>
+				</axis>
+			</joint>
+			<joint name="joint_leg_1_L_1" type="revolute">
+				<parent>link_leg_1_L_0</parent>
+				<child>link_leg_1_L_1</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>1.0 0.0 0.0</xyz>
+					<limit>
+						<lower>-1.25664</lower>
+						<upper>1.8326</upper>
+					</limit>
+				</axis>
+			</joint>
+			<joint name="joint_leg_1_R_0" type="revolute">
+				<parent>link_body_05</parent>
+				<child>link_leg_1_R_0</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>0.0 0.0 1.0</xyz>
+					<limit>
+						<lower>-1.27409</lower>
+						<upper>1.27409</upper>
+					</limit>
+				</axis>
+			</joint>
+			<joint name="joint_leg_1_R_1" type="revolute">
+				<parent>link_leg_1_R_0</parent>
+				<child>link_leg_1_R_1</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>-1.0 0.0 0.0</xyz>
+					<limit>
+						<lower>-1.25664</lower>
+						<upper>1.8326</upper>
+					</limit>
+				</axis>
+			</joint>
+			<joint name="joint_leg_0_L_0" type="revolute">
+				<parent>link_body_01</parent>
+				<child>link_leg_0_L_0</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>0.0 0.0 -1.0</xyz>
+					<limit>
+						<lower>-1.27409</lower>
+						<upper>1.27409</upper>
+					</limit>
+				</axis>
+			</joint>
+			<joint name="joint_leg_0_L_1" type="revolute">
+				<parent>link_leg_0_L_0</parent>
+				<child>link_leg_0_L_1</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>1.0 0.0 0.0</xyz>
+					<limit>
+						<lower>-1.25664</lower>
+						<upper>1.8326</upper>
+					</limit>
+				</axis>
+			</joint>
+			<joint name="joint_leg_0_R_0" type="revolute">
+				<parent>link_body_01</parent>
+				<child>link_leg_0_R_0</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>0.0 0.0 1.0</xyz>
+					<limit>
+						<lower>-1.27409</lower>
+						<upper>1.27409</upper>
+					</limit>
+				</axis>
+			</joint>
+			<joint name="joint_leg_0_R_1" type="revolute">
+				<parent>link_leg_0_R_0</parent>
+				<child>link_leg_0_R_1</child>
+				<pose>0 0 0 0 0 0</pose>
+				<axis>
+					<xyz>-1.0 0.0 0.0</xyz>
+					<limit>
+						<lower>-1.25664</lower>
+						<upper>1.8326</upper>
+					</limit>
+				</axis>
+			</joint>
+			<linkend name="link_body_10">
+				<pose>1.10521 0 -0.00025</pose>
+			</linkend>
+			<linkend name="link_leg_1_L_1">
+				<pose>0.532614 -0.1953 -0.01025</pose>
+			</linkend>
+			<linkend name="link_leg_1_R_1">
+				<pose>0.532614 0.1953 -0.01025</pose>
+			</linkend>
+			<linkend name="link_leg_0_L_1">
+				<pose>0.204114 -0.1953 -0.01025</pose>
+			</linkend>
+			<linkend name="link_leg_0_R_1">
+				<pose>0.204114 0.1953 -0.01025</pose>
+			</linkend>
+		</model>
+	</world>
+</sdf>
