@@ -4,6 +4,9 @@ import time
 from dataclasses import dataclass
 
 import numpy as np
+from pathlib import Path
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from farms_core import pylog
 from salamandra_simulation.data import SalamandraState
@@ -18,7 +21,7 @@ class DataState:
     state: SalamandraState
 
 
-def run_network(duration, update=False, drive=0, timestep=1e-2):
+def run_network(duration, update=False, drive=0, timestep=1e-2, output_folder="logs/exercise_p1", label="run"):
     """Run network without MuJoCo and plot results
 
     Parameters
@@ -81,15 +84,9 @@ def run_network(duration, update=False, drive=0, timestep=1e-2):
         # Update drive at each step (Exercise 1B: ramping drive)
         current_drive = drive_vector[i + 1]
 
-        if update:
-            network.robot_parameters.update(
-                SimulationParameters(drive=current_drive)
-            )
-        else:
-            # Always update drive so the vector ramp takes effect
-            network.robot_parameters.update(
-                SimulationParameters(drive=current_drive)
-            )
+        network.robot_parameters.update(
+            SimulationParameters(drive=current_drive)
+        )
 
         network.step(i, time0, timestep)
         phases_log[i+1, :] = network.state.phases(iteration=i+1)
@@ -107,37 +104,44 @@ def run_network(duration, update=False, drive=0, timestep=1e-2):
     # Plots
     # ----------------------------------------------------------------
 
-    # --- Plot 1: Body oscillator phases (motor output x_i) ---
-    fig1, axes1 = plt.subplots(3, 1, figsize=(12, 8), sharex=True,
-                                num='Body oscillator output (x_i)')
-    # Body motor outputs: x_i = r_i * (1 + cos(phi_i))
+    # --- Plot 1: Body oscillator motor outputs ---
     body_output = amplitudes_log[:, :16] * (1 + np.cos(phases_log[:, :16]))
+    limb_output = amplitudes_log[:, 16:] * (1 + np.cos(phases_log[:, 16:]))
+
+    fig1, axes1 = plt.subplots(3, 1, figsize=(12, 9), sharex=True,
+                                num=f'{label}_motor_outputs')
+    fig1.suptitle('Body oscillator motor outputs', fontsize=12)
 
     ax = axes1[0]
-    for j in range(0, 16, 2):  # left body oscillators
-        ax.plot(times, body_output[:, j], label=f'x{j}', alpha=0.8)
+    colors = plt.cm.tab10(np.linspace(0, 1, 8))
+    for k, j in enumerate(range(0, 16, 2)):   # left body oscillators (even)
+        ax.plot(times, body_output[:, j], color=colors[k],
+                label=f'x{j}', alpha=0.85)
     ax.set_ylabel('x Body (left)')
-    ax.set_title('Body oscillator motor outputs')
-    ax.legend(fontsize=6, loc='upper right', ncol=4)
+    ax.legend(fontsize=7, loc='upper right', ncol=4)
+    ax.grid(True, alpha=0.3)
 
     ax = axes1[1]
-    # Limb motor outputs
-    limb_output = amplitudes_log[:, 16:] * (1 + np.cos(phases_log[:, 16:]))
-    for j in range(0, 16, 4):  # one per limb, girdle flexor
-        ax.plot(times, limb_output[:, j], label=f'x{16+j}', alpha=0.8)
+    limb_labels = ['FL girdle', 'FR girdle', 'HL girdle', 'HR girdle']
+    for k, j in enumerate(range(0, 16, 4)):   # one girdle flexor per limb
+        ax.plot(times, limb_output[:, j], label=f'x{16+j} ({limb_labels[k]})',
+                alpha=0.85)
     ax.set_ylabel('x Limb (girdle flex)')
-    ax.legend(fontsize=6, loc='upper right', ncol=4)
+    ax.legend(fontsize=7, loc='upper right', ncol=2)
+    ax.grid(True, alpha=0.3)
 
     ax = axes1[2]
-    ax.plot(times, drive_log, 'k-', label='drive d')
+    ax.plot(times, drive_log, 'k-', linewidth=1.5, label='drive d')
     ax.set_ylabel('Drive d')
     ax.set_xlabel('Time [s]')
-    ax.legend()
-    fig1.tight_layout()
+    ax.legend(fontsize=8)
+    ax.grid(True, alpha=0.3)
+
+    fig1.tight_layout(rect=[0, 0, 1, 0.96])
 
     # --- Plot 2: Frequencies and amplitudes vs time ---
     fig2, axes2 = plt.subplots(4, 1, figsize=(12, 10), sharex=True,
-                                num='Network dynamics vs time')
+                                num=f'{label}_network_dynamics')
 
     axes2[0].plot(times, freqs_log[:, 0], 'b-', label='Body freq')
     axes2[0].plot(times, freqs_log[:, 16], 'b--', label='Limb freq')
@@ -177,7 +181,7 @@ def run_network(duration, update=False, drive=0, timestep=1e-2):
         R_limb_arr[k] = rp_tmp.nominal_amplitudes[16]
 
     fig3, axes3 = plt.subplots(2, 1, figsize=(8, 6),
-                                num='Oscillator properties vs drive')
+                                num=f'{label}_properties_vs_drive')
     axes3[0].plot(drives, f_body_arr, 'b-', label='Body')
     axes3[0].plot(drives, f_limb_arr, 'b--', label='Limb')
     axes3[0].set_ylabel('v [Hz]')
@@ -198,6 +202,7 @@ def run_network(duration, update=False, drive=0, timestep=1e-2):
     axes3[1].axvline(3.0, color='gray', linestyle=':')
     axes3[1].axvline(5.0, color='gray', linestyle=':')
     fig3.tight_layout()
+    
 
     return
 
@@ -207,20 +212,17 @@ def exercise_1a_networks(plot, timestep=1e-2):
 
     # Exercise 1A: static drive = 2.0 (walking regime)
     pylog.info('Running Exercise 1A: walking drive d=2.0')
-    run_network(duration=10, drive=2.0, timestep=timestep)
+    run_network(duration=10, drive=2.0, timestep=timestep, label="ex1a_drive_2")
 
     # Exercise 1B: ramping drive from 0 to 6 over 20 s
     pylog.info('Running Exercise 1B: ramping drive 0→6 over 20 s')
     duration_ramp = 20.0
     times_ramp = np.arange(0, duration_ramp, timestep)
     drive_ramp = np.linspace(0, 6, len(times_ramp))
-    run_network(duration=duration_ramp, drive=drive_ramp, timestep=timestep)
+    run_network(duration=duration_ramp, drive=drive_ramp, timestep=timestep, label="ex1b_ramp_0_to_6")
 
-    # Show / save plots
-    if plot:
-        plt.show()
-    else:
-        save_figures()
+    save_figures(extensions=['png'])
+    pylog.info("Plots saved in results/")
 
 
 if __name__ == '__main__':

@@ -94,41 +94,30 @@ class RobotParameters(dict):
     def set_frequencies(self, parameters):
         """Set oscillator intrinsic frequencies driven by MLR drive.
 
-        Parameters follow Ijspeert 2007 supplementary (Table S1):
-          Body:  f = cf1_body * d + cf0_body   for d_low_body < d < d_high_body
-          Limb:  f = cf1_limb * d + cf0_limb   for d_low_limb < d < d_high_limb
-        Outside the active range the frequency is clamped to the boundary value
-        (walk below d_low stays at walk freq; swim above d_high stays at swim).
+        Table S1 (Ijspeert 2007 supplementary):
+          Body:  f = 0.2*d + 0.3  for 1.0 <= d <= 5.0,  nu_sat = 0 outside
+          Limb:  f = 0.2*d        for 1.0 <= d <= 3.0,  nu_sat = 0 outside
+        Each is a SINGLE linear segment — no separate walking/swimming slopes.
+        The kink visible in Fig. 5A of the main paper is an emergent coupled
+        effect (limbs entrain the body slower during walking), not intrinsic.
         """
         d = self._drive_scalar(parameters)
 
-        # --- Body oscillators (Ijspeert 2007 Table S1) ---
-        # Walking regime:  1.0 < d < 3.0  →  f_body = 0.2*d + 0.3  [Hz]
-        # Swimming regime: 3.0 < d < 5.0  →  f_body = 0.1*d + 0.5  [Hz]
+        # Body: single linear regime, Table S1 [c_nu1, c_nu0] = [0.2, 0.3]
         d_low_body  = 1.0
-        d_sat_body  = 3.0   # transition walk→swim
         d_high_body = 5.0
-
-        if d < d_low_body:
-            f_body = 0.0
-        elif d < d_sat_body:
-            f_body = 0.2 * d + 0.3     # walking
-        elif d <= d_high_body:
-            f_body = 0.1 * d + 0.5     # swimming
+        if d_low_body <= d <= d_high_body:
+            f_body = 0.2 * d + 0.3
         else:
-            f_body = 0.1 * d_high_body + 0.5   # saturate
+            f_body = 0.0   # nu_sat = 0.0 (Table S1)
 
-        # --- Limb oscillators ---
-        # Active only in walking:  1.0 < d < 3.0  →  f_limb = 0.2*d + 0.0  [Hz]
+        # Limb: active only in walking, Table S1 [c_nu1, c_nu0] = [0.2, 0.0]
         d_low_limb  = 1.0
         d_high_limb = 3.0
-
-        if d < d_low_limb:
-            f_limb = 0.0
-        elif d <= d_high_limb:
-            f_limb = 0.2 * d + 0.0     # Ijspeert 2007 Table S1
+        if d_low_limb <= d <= d_high_limb:
+            f_limb = 0.2 * d
         else:
-            f_limb = 0.2 * d_high_limb  # saturate (limbs stop in pure swim)
+            f_limb = 0.0   # nu_sat = 0.0 (Table S1)
 
         self.freqs[:self.N_BODY] = f_body
         self.freqs[self.N_BODY:] = f_limb
@@ -145,8 +134,8 @@ class RobotParameters(dict):
         Limb circuits:
           - Antagonist pair within a joint (flex↔ext): w = 10
           - Girdle → knee coupling (ipsilateral within limb): w = 10
-          - Limb → body coupling at corresponding segment: w = 30
-          - Body → limb coupling: w = 30
+          - Limb girdle-flex → body coupling: w = 30 (only flexor, extensor excluded)
+          - Body → limb girdle-flex coupling: w = 10
           - Contralateral limb coupling (left↔right): w = 10
           - Fore–hind ipsilateral coupling: w = 10
         """
@@ -203,18 +192,22 @@ class RobotParameters(dict):
             W[b+1, b+3] = w_jnt
             W[b+3, b+1] = w_jnt
 
-        # Limb ↔ body coupling
-        # Forelimbs: limb 0 (FL), limb 1 (FR)
+        # Limb ↔ body coupling — ASYMMETRIC (supplementary section 1.4):
+        # W[j,i] = weight of j→i in the ODE.
+        # Only the girdle FLEXOR (b) couples to the body. Coupling through
+        # both flexor (b) and extensor (b+1) would cancel because they are
+        # antiphase: sin(φ_flex−φ_body+π) + sin(φ_ext−φ_body+π) = 0.
+        # limb_flex→body w=30 (strong): forces body into standing wave during walking.
+        # body→limb_flex w=10 (weak): lets inter-limb coupling establish trot first.
+        w_body_to_limb = 10.0
         for limb_idx, body_seg in [(0, body_seg_fore), (1, body_seg_fore),
                                     (2, body_seg_hind), (3, body_seg_hind)]:
             b = self._limb_base(limb_idx)
             side = limb_idx % 2  # 0=left, 1=right
             body_osc = 2 * body_seg + side  # L or R body oscillator
 
-            W[body_osc, b  ] = w_limb_body
-            W[body_osc, b+1] = w_limb_body
-            W[b,   body_osc] = w_limb_body
-            W[b+1, body_osc] = w_limb_body
+            W[body_osc, b] = w_body_to_limb   # body_osc → girdle_flex: w=10
+            W[b, body_osc] = w_limb_body       # girdle_flex → body_osc: w=30
 
         # Contralateral limb coupling (FL↔FR, HL↔HR)
         for pair in [(0, 1), (2, 3)]:
@@ -245,7 +238,7 @@ class RobotParameters(dict):
           - Knee lags girdle by π/2 (for circular motion at the joint)
           - Contralateral limbs (FL↔FR, HL↔HR): π  (trot: diagonals in phase)
           - Fore–hind ipsilateral: π (diagonal gait)
-          - Limb ↔ body: 0 (in phase with local body segment)
+          - Limb ↔ body: π (Table S1: [w=30, φ=π] for limb→body coupling)
         """
         PB = self.phase_bias
         PB[:] = 0.0
@@ -300,7 +293,27 @@ class RobotParameters(dict):
             PB[b0, b1] = np.pi;  PB[b1, b0] = np.pi
             PB[b0+1, b1+1] = np.pi;  PB[b1+1, b0+1] = np.pi
 
-        # Limb ↔ body: 0 (no bias — already zero by default)
+        # Limb ↔ body phase biases.
+        # Only the girdle flexor (b) is coupled — extensor has W=0 so PB doesn't matter.
+        #
+        # Forelimbs use ψ=π  → body_seg1 = FL+π = π  (anti-phase with FL)
+        # Hindlimbs use ψ=0  → body_seg4 = HL   = π  (in-phase with HL=π)
+        #
+        # Both anchors end up at the same body phase (π on the left side),
+        # which flattens the phase gradient between segs 1 and 4 → standing wave.
+        # Using ψ=π for both would drive them anti-phase (seg4=0), creating a
+        # phase jump of π/3 per step between the girdles — stronger than the
+        # swimming traveling wave, not weaker.
+        body_seg_fore = 1
+        body_seg_hind = 4
+        for limb_idx, body_seg in [(0, body_seg_fore), (1, body_seg_fore),
+                                    (2, body_seg_hind), (3, body_seg_hind)]:
+            b = self._limb_base(limb_idx)
+            side = limb_idx % 2
+            body_osc = 2 * body_seg + side
+            psi = np.pi if limb_idx < 2 else 0.0   # fore: ψ=π, hind: ψ=0
+            PB[body_osc, b] = psi
+            PB[b, body_osc] = psi
 
     # 4. Amplitude convergence rates
 
@@ -314,29 +327,21 @@ class RobotParameters(dict):
     def set_nominal_amplitudes(self, parameters):
         """Set nominal amplitudes R_i driven by MLR drive.
 
-        Body (Ijspeert 2007 Table S1):
-          Walking:  R_body = 0.065 * d + 0.196   (1 < d < 3)
-          Swimming: R_body = 0.131 * d + 0.058   (3 < d < 5)
-
-        Limb:
-          Walking:  R_limb = 0.131 * d + 0.131   (1 < d < 3)
-          Outside range: 0
+        Table S1 (Ijspeert 2007 supplementary):
+          Body:  R = 0.065*d + 0.196  for 1.0 <= d <= 5.0,  R_sat = 0 outside
+          Limb:  R = 0.131*d + 0.131  for 1.0 <= d <= 3.0,  R_sat = 0 outside
+        Single linear segment each — same logic as frequencies.
         """
         d = self._drive_scalar(parameters)
 
-        # Body
+        # Body: single linear regime, Table S1 [c_R1, c_R0] = [0.065, 0.196]
         d_low_body  = 1.0
-        d_sat_body  = 3.0
         d_high_body = 5.0
 
-        if d < d_low_body:
-            R_body = 0.0
-        elif d < d_sat_body:
-            R_body = 0.065 * d + 0.196    # walking
-        elif d <= d_high_body:
-            R_body = 0.131 * d + 0.058    # swimming
+        if d_low_body <= d <= d_high_body:
+            R_body = 0.065 * d + 0.196
         else:
-            R_body = 0.131 * d_high_body + 0.058
+            R_body = 0.0   # R_sat = 0.0 (Table S1)
 
         # Optional amplitude gradient along the body
         amp_grad = getattr(parameters, 'amplitude_gradient', None)

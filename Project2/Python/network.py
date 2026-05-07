@@ -45,8 +45,8 @@ def network_ode(_time, state, robot_parameters, loads, contact_sens):
     #     loads[robot_parameters.n_body_joints:],
     # ])
     dphases = (
-        # Intrinsic frequencies
-        robot_parameters.freqs
+        # Intrinsic frequencies: equation is dφ/dt = 2πν + Σ r_j w_ij sin(…)
+        2 * np.pi * robot_parameters.freqs
         # Coupling
         + np.sum(
             amplitudes * robot_parameters.coupling_weights.T * np.sin(
@@ -104,10 +104,18 @@ class SalamandraNetwork(NetworkODE):
         self.robot_parameters = RobotParameters(sim_parameters)
         # self.drive_config = None
         # Set initial state
-        # Replace your initial oscillator phases here if needed
+        # Phases: uniform random over [0, 2π] — breaks symmetry so that
+        # antiphase couplings (ψ=π) have a non-zero driving force from t=0
+        # Near-zero phases leave sin(φ_j − φ_i − π) ≈ 0 → no coupling
         self.state.set_phases(
             iteration=0,
-            value=1e-4*np.random.rand(self.robot_parameters.n_oscillators),
+            value=2*np.pi*np.random.rand(self.robot_parameters.n_oscillators),
+        )
+        # Amplitudes: start at nominal R so coupling r_j·w·sin(…) is strong
+        # from the very first step rather than growing in from zero.
+        self.state.array[0, self.robot_parameters.n_oscillators:
+                            2*self.robot_parameters.n_oscillators] = (
+            self.robot_parameters.nominal_amplitudes
         )
         # Set solver
         self.integrator = 'dopri5'
