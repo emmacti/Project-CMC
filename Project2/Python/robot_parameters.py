@@ -28,6 +28,9 @@ class RobotParameters(dict):
         self.rates = np.zeros(self.n_oscillators)
         self.nominal_amplitudes = np.zeros(self.n_oscillators)
 
+        # Keep a reference so step() can update drive during physics sim
+        self._sim_parameters = parameters
+
         self.update(parameters)
 
     def update(self, parameters):
@@ -39,10 +42,30 @@ class RobotParameters(dict):
         self.set_nominal_amplitudes(parameters)
 
     def step(self, time, iteration, salamandra_data):
-        """Step function called at each iteration"""
+        """Step function called at each iteration.
+
+        If the SimulationParameters that were used to build this object contained
+        drive_ramp_start / drive_ramp_end / drive_ramp_duration, the drive is
+        linearly interpolated over time and the network parameters are updated
+        on every physics step so that the ramp takes effect in the simulation.
+        """
         gps = np.array(
             salamandra_data.sensors.links.urdf_positions()[iteration, :9],
         )
+
+        # Drive ramp: update drive linearly if ramp parameters are present
+        if (hasattr(self, '_sim_parameters') and
+                hasattr(self._sim_parameters, 'drive_ramp_start') and
+                self._sim_parameters.drive_ramp_start is not None):
+            p = self._sim_parameters
+            d_start    = p.drive_ramp_start
+            d_end      = p.drive_ramp_end
+            ramp_dur   = p.drive_ramp_duration
+            # Clamp time to [0, ramp_dur]
+            t_clamped  = min(max(time, 0.0), ramp_dur)
+            drive_now  = d_start + (d_end - d_start) * t_clamped / ramp_dur
+            p.drive    = drive_now          # update stored scalar
+            self.update(p)                  # recompute freqs, amplitudes, etc.
 
     # Drive helpers
 
@@ -260,11 +283,24 @@ class RobotParameters(dict):
             if i + 1 < self.n_body_joints:
                 L_next = 2 * (i + 1)
                 R_next = 2 * (i + 1) + 1
-                # Forward coupling: osc_i leads osc_{i+1} by phase_lag
+                # In Polymander, joint/oscillator indices run TAIL(0) -> HEAD(7).
+                # osc 0 = tail, osc 14 = head.
+                # For FORWARD locomotion, HEAD must lead (head-to-tail wave).
+                # Equilibrium: phi_j - phi_i = -PB[j,i]
+                # Want phi_L_next - phi_L = +phase_lag (higher index = head leads)
+                # -> PB[L, L_next] = +phase_lag,  PB[L_next, L] = -phase_lag
+                # ODE uses W.T and PB.T, so effective equation is:
+                # dφ_i/dt += Σ_j r_j * W[i,j] * sin(φ_j - φ_i + PB[i,j])
+                # Equilibrium: φ_i - φ_j = PB[i,j]
+                # For HEAD(osc 0, i=L) to LEAD TAIL(osc 2+, j=L_next) by phase_lag:
+                #   PB[i=L, j=L_next] = phase_lag   (positive)
+                #   PB[i=L_next, j=L] = -phase_lag
+                
                 PB[L, L_next] = phase_lag
                 PB[L_next, L] = -phase_lag
                 PB[R, R_next] = phase_lag
                 PB[R_next, R] = -phase_lag
+                
 
         # ---- Limb circuits ----
         for limb_idx in range(self.N_LIMBS):
@@ -275,7 +311,10 @@ class RobotParameters(dict):
             PB[b,   b+1] = np.pi;   PB[b+1, b  ] = np.pi
             PB[b+2, b+3] = np.pi;   PB[b+3, b+2] = np.pi
 
-            # Knee lags girdle by π/2
+            # Knee lags girdle by π/2.
+            # Equilibrium: φ_i - φ_j = PB[i,j]
+            # φ_girdle(i=b) - φ_knee(j=b+2) = π/2 → PB[b, b+2] = π/2  ✓
+            # φ_knee(i=b+2) - φ_girdle(j=b) = -π/2 → PB[b+2, b] = -π/2  ✓
             PB[b,   b+2] = np.pi/2;  PB[b+2, b  ] = -np.pi/2
             PB[b+1, b+3] = np.pi/2;  PB[b+3, b+1] = -np.pi/2
 
@@ -311,9 +350,12 @@ class RobotParameters(dict):
             b = self._limb_base(limb_idx)
             side = limb_idx % 2
             body_osc = 2 * body_seg + side
-            psi = np.pi if limb_idx < 2 else 0.0   # fore: ψ=π, hind: ψ=0
-            PB[body_osc, b] = psi
-            PB[b, body_osc] = psi
+            # Effective ODE: equilibrium φ_i - φ_j = PB[i,j]
+            # Forelimbs: limb leads body by π (standing wave at fore attachment)
+            # Hindlimbs: limb in-phase with body (ψ=0)
+            psi = np.pi if limb_idx < 2 else 0.0
+            PB[b, body_osc] = psi      # limb(i) - body(j) = psi at equilibrium
+            PB[body_osc, b] = -psi     # body(i) - limb(j) = -psi (consistent)
 
     # 4. Amplitude convergence rates
 

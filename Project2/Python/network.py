@@ -82,12 +82,14 @@ def motor_output(phases, amplitudes, iteration):
         Motor outputs for joint in the system.
 
     """
-    output = (
+    
+    output = ( 
         amplitudes[0:32:2]*(1+np.cos(phases[0:32:2]))
-        - amplitudes[1:32:2]*(1+np.cos(phases[1:32:2]))
+        - amplitudes[1:32:2]*(1+np.cos(phases[1:32:2]))    
+    
     ) if iteration is not None else (
         amplitudes[:, 0:32:2]*(1+np.cos(phases[:, 0:32:2]))
-        - amplitudes[:, 1:32:2]*(1+np.cos(phases[:, 1:32:2]))
+        - amplitudes[:, 1:32:2]*(1+np.cos(phases[:, 1:32:2])) 
     )
     return output
 
