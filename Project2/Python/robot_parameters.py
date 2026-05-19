@@ -236,16 +236,15 @@ class RobotParameters(dict):
         for pair in [(0, 1), (2, 3)]:
             b0 = self._limb_base(pair[0])
             b1 = self._limb_base(pair[1])
-            # girdle oscillators
-            W[b0, b1] = w_contra_limb;  W[b1, b0] = w_contra_limb
-            W[b0+1, b1+1] = w_contra_limb;  W[b1+1, b0+1] = w_contra_limb
+            W[b0,   b1  ] = w_contra_limb;  W[b1,   b0  ] = w_contra_limb  # girdle flex
+            W[b0+1, b1+1] = w_contra_limb;  W[b1+1, b0+1] = w_contra_limb  # girdle ext
 
         # Fore–hind ipsilateral coupling (FL↔HL left, FR↔HR right)
         for pair in [(0, 2), (1, 3)]:
             b0 = self._limb_base(pair[0])
             b1 = self._limb_base(pair[1])
-            W[b0, b1] = w_fore_hind;  W[b1, b0] = w_fore_hind
-            W[b0+1, b1+1] = w_fore_hind;  W[b1+1, b0+1] = w_fore_hind
+            W[b0,   b1  ] = w_fore_hind;  W[b1,   b0  ] = w_fore_hind  # girdle flex
+            W[b0+1, b1+1] = w_fore_hind;  W[b1+1, b0+1] = w_fore_hind  # girdle ext
 
     # 3. Phase bias
 
@@ -312,11 +311,12 @@ class RobotParameters(dict):
             PB[b+2, b+3] = np.pi;   PB[b+3, b+2] = np.pi
 
             # Knee lags girdle by π/2.
-            # Equilibrium: φ_i - φ_j = PB[i,j]
-            # φ_girdle(i=b) - φ_knee(j=b+2) = π/2 → PB[b, b+2] = π/2  ✓
-            # φ_knee(i=b+2) - φ_girdle(j=b) = -π/2 → PB[b+2, b] = -π/2  ✓
-            PB[b,   b+2] = np.pi/2;  PB[b+2, b  ] = -np.pi/2
-            PB[b+1, b+3] = np.pi/2;  PB[b+3, b+1] = -np.pi/2
+            # Correct ODE equilibrium: φ_i − φ_j = PB[j, i]
+            # Want φ_girdle − φ_knee = +π/2  (girdle leads, knee lags)
+            # → PB[j=knee, i=girdle] = PB[b+2, b] = +π/2
+            # → PB[j=girdle, i=knee] = PB[b, b+2] = −π/2  
+            PB[b,   b+2] = -np.pi/2;  PB[b+2, b  ] = np.pi/2
+            PB[b+1, b+3] = -np.pi/2;  PB[b+3, b+1] = np.pi/2
 
         # Contralateral limb pairs: π (trot)
         for pair in [(0, 1), (2, 3)]:
@@ -353,7 +353,8 @@ class RobotParameters(dict):
             # Effective ODE: equilibrium φ_i - φ_j = PB[i,j]
             # Forelimbs: limb leads body by π (standing wave at fore attachment)
             # Hindlimbs: limb in-phase with body (ψ=0)
-            psi = np.pi if limb_idx < 2 else 0.0
+            psi = 0.0 if limb_idx < 2 else np.pi   # fore: ψ=0, hind: ψ=π  
+            #psi = np.pi if limb_idx < 2 else 0.0
             PB[b, body_osc] = psi      # limb(i) - body(j) = psi at equilibrium
             PB[body_osc, b] = -psi     # body(i) - limb(j) = -psi (consistent)
 

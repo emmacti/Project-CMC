@@ -94,7 +94,7 @@ def exercise_walk(timestep):
         spawn_position=[0, 0, 0.1],
         spawn_orientation=[0, 0, np.pi / 2],
         drive=drive,
-        phase_lag_body=2 * np.pi / 8,   # default travelling wave
+        phase_lag_body= 2 * np.pi / 8,   # default travelling wave
         amplitude_gradient=None,
     )
 
