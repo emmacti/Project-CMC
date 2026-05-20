@@ -44,7 +44,10 @@ def simulation(
     animat_id = kwargs.pop('animat_id', 0)  # None for fixed camera
     record_fps = kwargs.pop('record_fps', 30)
     record_speed = kwargs.pop('record_speed', 1.0)
-    record_azimuth = kwargs.pop('record_aziomuth', -30)
+    record_azimuth = kwargs.pop(
+        'record_azimuth',
+        kwargs.pop('record_aziomuth', -30),
+    )
     record_elevation = kwargs.pop('record_elevation', -15)
     record_distance = kwargs.pop('record_distance', 2)
     record_angular_velocity = kwargs.pop('record_angular_velocity', 0)

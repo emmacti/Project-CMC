@@ -30,6 +30,8 @@ class RobotParameters(dict):
 
         # Keep a reference so step() can update drive during physics sim
         self._sim_parameters = parameters
+        self.update_drive = bool(getattr(parameters, 'update_drive', False))
+        self._gait_drive_state = None  # 'walk' or 'swim' for contact feedback
 
         self.update(parameters)
 
@@ -49,10 +51,6 @@ class RobotParameters(dict):
         linearly interpolated over time and the network parameters are updated
         on every physics step so that the ramp takes effect in the simulation.
         """
-        gps = np.array(
-            salamandra_data.sensors.links.urdf_positions()[iteration, :9],
-        )
-
         # Drive ramp: update drive linearly if ramp parameters are present
         if (hasattr(self, '_sim_parameters') and
                 hasattr(self._sim_parameters, 'drive_ramp_start') and
@@ -66,8 +64,45 @@ class RobotParameters(dict):
             drive_now  = d_start + (d_end - d_start) * t_clamped / ramp_dur
             p.drive    = drive_now          # update stored scalar
             self.update(p)                  # recompute freqs, amplitudes, etc.
+            return
+
+        # Contact-based gait selection (Exercise 4)
+        if self.update_drive:
+            self._update_drive_from_contacts(iteration, salamandra_data)
 
     # Drive helpers
+
+    def _update_drive_from_contacts(self, iteration, salamandra_data):
+        """Switch MLR drive between walking and swimming from foot contacts."""
+        p = self._sim_parameters
+        index = 0 if iteration == 0 else (iteration - 1)
+        contacts_all = np.linalg.norm(
+            np.array(salamandra_data.sensors.contacts.totals()[index]),
+            axis=1,
+        )
+        contacts_feet = contacts_all[10:18:2]
+        feet_signal = float(np.sum(contacts_feet))
+
+        walk_drive = float(getattr(p, 'walk_drive', 2.0))
+        swim_drive = float(getattr(p, 'swim_drive', 4.5))
+        feet_on = float(getattr(p, 'feet_contact_on', 0.15))
+        feet_off = float(getattr(p, 'feet_contact_off', 0.05))
+
+        if self._gait_drive_state is None:
+            self._gait_drive_state = (
+                'walk' if feet_signal > feet_on else 'swim'
+            )
+
+        if self._gait_drive_state == 'walk':
+            if feet_signal < feet_off:
+                self._gait_drive_state = 'swim'
+        elif feet_signal > feet_on:
+            self._gait_drive_state = 'walk'
+
+        target_drive = walk_drive if self._gait_drive_state == 'walk' else swim_drive
+        if abs(p.drive - target_drive) > 1e-6:
+            p.drive = target_drive
+            self.update(p)
 
     @staticmethod
     def _drive_scalar(parameters):
@@ -222,15 +257,19 @@ class RobotParameters(dict):
         # antiphase: sin(φ_flex−φ_body+π) + sin(φ_ext−φ_body+π) = 0.
         # limb_flex→body w=30 (strong): forces body into standing wave during walking.
         # body→limb_flex w=10 (weak): lets inter-limb coupling establish trot first.
+        disable_limb_spine = bool(
+            getattr(parameters, 'disable_limb_spine_coupling', False),
+        )
         w_body_to_limb = 10.0
-        for limb_idx, body_seg in [(0, body_seg_fore), (1, body_seg_fore),
-                                    (2, body_seg_hind), (3, body_seg_hind)]:
-            b = self._limb_base(limb_idx)
-            side = limb_idx % 2  # 0=left, 1=right
-            body_osc = 2 * body_seg + side  # L or R body oscillator
+        if not disable_limb_spine:
+            for limb_idx, body_seg in [(0, body_seg_fore), (1, body_seg_fore),
+                                        (2, body_seg_hind), (3, body_seg_hind)]:
+                b = self._limb_base(limb_idx)
+                side = limb_idx % 2  # 0=left, 1=right
+                body_osc = 2 * body_seg + side  # L or R body oscillator
 
-            W[body_osc, b] = w_body_to_limb   # body_osc → girdle_flex: w=10
-            W[b, body_osc] = w_limb_body       # girdle_flex → body_osc: w=30
+                W[body_osc, b] = w_body_to_limb   # body_osc → girdle_flex: w=10
+                W[b, body_osc] = w_limb_body       # girdle_flex → body_osc: w=30
 
         # Contralateral limb coupling (FL↔FR, HL↔HR)
         for pair in [(0, 1), (2, 3)]:
@@ -345,16 +384,18 @@ class RobotParameters(dict):
         # swimming traveling wave, not weaker.
         body_seg_fore = 1
         body_seg_hind = 4
+        limb_body_offset = getattr(parameters, 'limb_body_phase_offset', None)
         for limb_idx, body_seg in [(0, body_seg_fore), (1, body_seg_fore),
                                     (2, body_seg_hind), (3, body_seg_hind)]:
             b = self._limb_base(limb_idx)
             side = limb_idx % 2
             body_osc = 2 * body_seg + side
             # Effective ODE: equilibrium φ_i - φ_j = PB[i,j]
-            # Forelimbs: limb leads body by π (standing wave at fore attachment)
-            # Hindlimbs: limb in-phase with body (ψ=0)
-            psi = 0.0 if limb_idx < 2 else np.pi   # fore: ψ=0, hind: ψ=π  
-            #psi = np.pi if limb_idx < 2 else 0.0
+            if limb_body_offset is not None:
+                psi = float(limb_body_offset)
+            else:
+                # Forelimbs: ψ=0; hindlimbs: ψ=π (standing wave during walking)
+                psi = 0.0 if limb_idx < 2 else np.pi
             PB[b, body_osc] = psi      # limb(i) - body(j) = psi at equilibrium
             PB[body_osc, b] = -psi     # body(i) - limb(j) = -psi (consistent)
 
@@ -407,3 +448,8 @@ class RobotParameters(dict):
             R_limb = 0.131 * d + 0.131    # Ijspeert 2007 Table S1
 
         self.nominal_amplitudes[self.N_BODY:] = R_limb
+
+        body_gain = float(getattr(parameters, 'body_amplitude_gain', 1.0))
+        limb_gain = float(getattr(parameters, 'limb_amplitude_gain', 1.0))
+        self.nominal_amplitudes[:self.N_BODY] *= body_gain
+        self.nominal_amplitudes[self.N_BODY:] *= limb_gain

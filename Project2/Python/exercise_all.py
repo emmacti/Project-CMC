@@ -9,6 +9,14 @@ from exercise_p2 import (
     exercise_ramp_swim,
     exercise_ramp_walk,
 )
+from exercise_p3 import (
+    exercise_3_spine_analysis,
+    exercise_3_disable_limb_spine_coupling,
+    exercise_3a_coordination,
+    exercise_3b_coordination,
+    exercise_3_limb_spine_antiphase,
+)
+from exercise_p4 import exercise_4a_transition
 
 
 def exercise_all(arguments):
@@ -31,6 +39,17 @@ def exercise_all(arguments):
         exercise_ramp_swim(timestep)
     if '2c' in arguments:
         exercise_ramp_walk(timestep)
+    if '3' in arguments:
+        exercise_3_spine_analysis(timestep)
+        exercise_3_disable_limb_spine_coupling(timestep)
+        exercise_3a_coordination(timestep)
+        exercise_3b_coordination(timestep)
+    if '3a' in arguments:
+        exercise_3a_coordination(timestep)
+    if '3b' in arguments:
+        exercise_3b_coordination(timestep)
+    if '4' in arguments or '4a' in arguments:
+        exercise_4a_transition(timestep)
 
     if not verbose:
         pylog.set_level('debug')
