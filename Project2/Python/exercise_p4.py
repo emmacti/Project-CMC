@@ -66,8 +66,8 @@ def exercise_4a_transition(timestep):
         drive_swim=4.5,
         transition_contact_threshold=0.6,
         transition_hysteresis=0.2,
-        spawn_position=[2.0, 0.0, 0.05],
-        spawn_orientation=[0, 0, np.pi],  
+        spawn_position=[-2.0, 0.0, 0.05],
+        spawn_orientation=[0, 0, -np.pi],  
     )
     simulation(
         sim_parameters=sim_parameters,
@@ -89,7 +89,7 @@ def exercise_4a_transition(timestep):
         drive_swim=4.5,
         transition_contact_threshold=0.6,
         transition_hysteresis=0.2,
-        spawn_position=[-2.0, 0.0, 0.05],
+        spawn_position=[2.0, 0.0, 0.05],
         spawn_orientation=[0, 0, np.pi],  # flip heading 
     )
     simulation(
