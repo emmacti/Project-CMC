@@ -1,0 +1,130 @@
+\documentclass{cmc}
+\usepackage{makecell}
+\usepackage{enumitem}
+% \usepackage{subfig}
+\begin{document}
+
+\pagestyle{fancy}
+\lhead{\textit{\textbf{Computational Motor Control, Spring 2026} \\
+    Final project, Project 2-B, GRADED}} \rhead{Student \\ Names}
+% \tableofcontents
+
+\section {Assignment \- Part B}
+
+This part is to be distributed with Part A for the final submission.
+For both parts, ensure you fully detail and justify your approach, including design choices, parameter selections, and observations.
+Wherever relevant, draw explicit connections to biological mechanisms in salamanders to ground your work in real-world locomotion principles.
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXERCISE 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{3. Limb and Spine Coordination}\label{sec:limb-spine-coordination}
+
+In this exercise, you will explore how limb-spine coordination affects walking performance.
+Begin by selecting a drive value in the walking regime and verify that the robot walks properly.
+
+\begin{enumerate}
+  \item Analyze the spine movement: What are your phase lags along the spine during walking?
+        What gait does the robot employ?
+        How does the spine movement compare to the one used for swimming?
+        Discuss the implications of these differences.
+
+  \item Disable spine-limb coupling (set all limb-spine weights to 0).
+        Provide a video showing the behavior, and report your observations about the network dynamics and the gait.
+        How does this affect walking speed and stability?
+        Explain why spine-limb coordination is critical for effective locomotion in salamanders.
+
+  \item Run a 2D parameter sweep varying the \textbf{phase offset between limb and axial oscillators} and the \textbf{drive}.
+        Plot forward speed and Cost of Transport (CoT) with respect to this sweep.
+        Refer to some helpful functions in \texttt{plot\_results.py} to extract and visualize simulation data, modifying them as needed for your analysis.
+        Feel free to identify and show any other relevant metrics and plots, and discuss your findings.
+        Identify the phase offset(s) that maximizes speed or minimizes CoT.
+        Provide a video of the ideal walking behavior, and a video showing the spine-limb phase lag operating in anti-phase to the ideal behavior.
+        Compare your findings to biological observations in salamanders and the literature, explaining any similarities and differences.
+
+  \item Explore the influence of the axial and limb oscillation amplitudes on the walking speed and CoT.
+        Run a 2D parameter sweep \textbf{varying both the axial and limb oscillator amplitudes} by multiplying each by a gain factor.
+        Use the optimal phase offset from the previous sub-exercise.
+        Start both gains from 0 (no body bending or limb movement) and extend above your default walking values (the walking performance should deteriorate).
+        Plot how the amplitude gains influence walking speed and CoT, and discuss the results.
+        Provide a video(s) showing the optimal oscillator amplitudes and discuss your findings.
+        Compare your findings to biological observations in salamanders and the literature, explaining any similarities and differences.
+\end{enumerate}
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXERCISE 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{4. Transitions between Swimming and Walking}\label{sec:transitions}
+
+In this exercise, you will implement and analyze a gait switching mechanism using sensory feedback to determine the optimal level of drive for the environment in the ``amphibious'' arena.
+Refer to \corr{robot\_parameter.py} for an example of accessing sensory data and dynamically updating the drive, and to \corr{exercise\_p4.py} for important implementation hints (found in the docstring).
+
+\begin{enumerate}
+  \item Propose and implement a feedback strategy for gait selection.
+        Justify your choices.
+  \item Record a video showing the transition from land to water, and another showing a water-to-land transition.
+        In both cases, spawn the robot in a position and orientation that will lead to a gait transition, but ensure the video captures both gaits clearly.
+  \item Discuss the results, including the observed transitions and any limitations.
+        Compare your approach to how salamanders detect environmental changes and justify its biological plausibility.
+\end{enumerate}
+
+
+\subsection*{5. Future work}\label{sec:future-work}
+
+Now that you have a working simulation model of the salamander with a functional network capable of displaying different gaits, propose 3 research questions that could be investigated using this simulation framework.
+For each, formulate a testable hypothesis and describe the experimental setup you would use to investigate it.
+Consider how you might extend or combine elements from any of the previous exercises, not just those related to gait transitions, and discuss what biological insights such experiments could provide about locomotion control.
+Note: This is a theoretical exercise, no implementation is required.
+If you need inspiration, start by consulting the provided literature for ideas.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \newpage
+
+% NOTE: Use this for .bib file instead of listing the \bibitems in the bibliography
+% \bibliographystyle{ieetr}
+% \bibliography{project1}\label{sec:references}
+
+\begin{thebibliography}{9}
+
+  % Volume, Number, Page, Month, Year
+  \bibitem{Crespi2013}
+  A. Crespi and K. Karakasiliotis and A. Guignard and A. J. Ijspeert,
+  \emph{Salamandra Robotica II:\ An Amphibious Robot to Study Salamander-Like Swimming and Walking Gaits},
+  IEEE Transactions on Robotics, Vol. 29, Num. 2, pp.308--320, April 2013,
+
+  \bibitem{Karakasiliotis2013}
+  Karakasiliotis, Konstantinos and Schilling, Nadja and Cabelguen, Jean-Marie and Ijspeert, Auke Jan,
+  \emph{Where are we in understanding salamander locomotion: biological and robotic perspectives on kinematics},
+  Biological Cybernetics, Vol. 107, Num. 5, pp. 529--544, October 2013,
+
+  \bibitem{ijspeert2007swimming}
+  Ijspeert, Auke Jan and Crespi, Alessandro and Ryczko, Dimitri and Cabelguen, Jean-Marie,
+  \emph{From swimming to walking with a salamander robot driven by a spinal cord model},
+  Science, Vol. 315, Num. 5817, pp. 1416--1420, 2007
+
+  \bibitem{thandiackal2021emergence}
+  Thandiackal, Robin and Melo, Kamilo and Paez, Laura and Herault, Johann and Kano, Takeshi and Akiyama, Kyoichi and Boyer, Fr{\'e}d{\'e}ric and Ryczko, Dimitri and Ishiguro, Akio and Ijspeert, Auke J,
+  \emph{Emergence of robust self-organized undulatory swimming based on local hydrodynamic force sensing},
+  Science Robotics, Vol. 6, Num. 56, pp.\ eabf6354, 2021,
+
+  \bibitem{owaki2013simple}
+  Owaki, Dai and Kano, Takeshi and Nagasawa, Ko and Tero, Atsushi and Ishiguro, Akio,
+  \emph{Simple robot suggests physical interlimb communication is essential for quadruped walking},
+  Journal of The Royal Society Interface, Vol. 10, Num. 78, pp. 20120669, 2013,
+
+\end{thebibliography}
+
+% \newpage
+
+% \section*{APPENDIX}
+% \label{sec:appendix}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

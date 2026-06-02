@@ -45,8 +45,8 @@ def network_ode(_time, state, robot_parameters, loads, contact_sens):
     #     loads[robot_parameters.n_body_joints:],
     # ])
     dphases = (
-        # Intrinsic frequencies: equation is dφ/dt = 2πν + Σ r_j w_ij sin(…)
-        2 * np.pi * robot_parameters.freqs
+        # Intrinsic frequencies
+        robot_parameters.freqs
         # Coupling
         + np.sum(
             amplitudes * robot_parameters.coupling_weights.T * np.sin(
@@ -82,14 +82,12 @@ def motor_output(phases, amplitudes, iteration):
         Motor outputs for joint in the system.
 
     """
-    
-    output = ( 
+    output = (
         amplitudes[0:32:2]*(1+np.cos(phases[0:32:2]))
-        - amplitudes[1:32:2]*(1+np.cos(phases[1:32:2]))    
-    
+        - amplitudes[1:32:2]*(1+np.cos(phases[1:32:2]))
     ) if iteration is not None else (
         amplitudes[:, 0:32:2]*(1+np.cos(phases[:, 0:32:2]))
-        - amplitudes[:, 1:32:2]*(1+np.cos(phases[:, 1:32:2])) 
+        - amplitudes[:, 1:32:2]*(1+np.cos(phases[:, 1:32:2]))
     )
     return output
 
@@ -106,18 +104,11 @@ class SalamandraNetwork(NetworkODE):
         self.robot_parameters = RobotParameters(sim_parameters)
         # self.drive_config = None
         # Set initial state
-        # Phases: uniform random over [0, 2π] — breaks symmetry so that
-        # antiphase couplings (ψ=π) have a non-zero driving force from t=0
-        # Near-zero phases leave sin(φ_j − φ_i − π) ≈ 0 → no coupling
+        seed = int(getattr(sim_parameters, 'initial_phase_seed', 42))
+        rng = np.random.default_rng(seed)
         self.state.set_phases(
             iteration=0,
-            value=2*np.pi*np.random.rand(self.robot_parameters.n_oscillators),
-        )
-        # Amplitudes: start at nominal R so coupling r_j·w·sin(…) is strong
-        # from the very first step rather than growing in from zero.
-        self.state.array[0, self.robot_parameters.n_oscillators:
-                            2*self.robot_parameters.n_oscillators] = (
-            self.robot_parameters.nominal_amplitudes
+            value=rng.uniform(0.0, 2*np.pi, size=self.robot_parameters.n_oscillators),
         )
         # Set solver
         self.integrator = 'dopri5'
