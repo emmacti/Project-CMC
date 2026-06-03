@@ -1,6 +1,8 @@
 """[Project1] Exercise 2: Swimming & Walking with Salamander Robot"""
 
 import os
+import matplotlib
+matplotlib.use("Agg")  # non-interactive backend — avoids GUI errors on macOS
 import numpy as np
 from salamandra_simulation.simulation import simulation
 from simulation_parameters import SimulationParameters
@@ -22,6 +24,9 @@ def exercise_walk(timestep):
         record=True,
         output='logs/ex2_walk/sim_0',
         record_path='logs/ex2_walk/walk.mp4',
+        record_aziomuth=0,    # side view
+        record_elevation=-5,
+        record_distance=2.5,
         verbose=True,
     )
     return
@@ -47,6 +52,9 @@ def exercise_ramp_swim(timestep):
         record=True,
         output='logs/ex2_ramp_swim/sim_0',
         record_path='logs/ex2_ramp_swim/ramp_swim.mp4',
+        record_aziomuth=0,
+        record_elevation=-5,
+        record_distance=2.5,
         verbose=False,
     )
     return
@@ -72,6 +80,9 @@ def exercise_ramp_walk(timestep):
         record=True,
         output='logs/ex2_ramp_walk/sim_0',
         record_path='logs/ex2_ramp_walk/ramp_walk.mp4',
+        record_aziomuth=0,    # side view: perpendicular to Y-axis motion
+        record_elevation=-5,
+        record_distance=2.5,
         verbose=False,
     )
     return

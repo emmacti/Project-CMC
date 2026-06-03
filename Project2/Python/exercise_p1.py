@@ -4,6 +4,8 @@ import time
 from dataclasses import dataclass
 
 import numpy as np
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from farms_core import pylog
 from salamandra_simulation.data import SalamandraState
@@ -251,13 +253,9 @@ def exercise_1a_networks(plot, timestep=1e-2):
         timestep=timestep,
     )
 
-    # Show plots
-    if True:
-        if plot:
-            plt.show()
-        else:
-            save_figures()
-        return
+    # Save plots (Agg backend is non-interactive, plt.show() is not supported)
+    save_figures()
+    return
 
 
 if __name__ == '__main__':

@@ -25,7 +25,7 @@ class SimulationParameters:
 
         # Axial CPG defaults taken from Project 1 
         self.drive_dlow = 1.0
-        self.drive_dhigh = 5.0
+        self.drive_dhigh = 6.0
         self.cpg_convergence_rate = 3.0  # a_i [1/s]
         self.cpg_freq_offset_hz = 1.0  # c_fi,0 [Hz]
         self.cpg_amp_offset = 0.5  # c_Ri,0

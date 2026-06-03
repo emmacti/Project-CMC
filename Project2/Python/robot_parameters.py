@@ -135,10 +135,17 @@ class RobotParameters(dict):
                     self.sim_parameters.drive = drive_swim
 
         drive = self._as_drive_scalar(self.sim_parameters, iteration=iteration)
-        self.set_frequencies(self.sim_parameters)  
-        self.set_nominal_amplitudes(self.sim_parameters)  
+        # Temporarily replace the drive array with the current scalar so that
+        # set_frequencies / set_nominal_amplitudes see the correct value.
+        # Without this they call _as_drive_scalar(params, iteration=None) which
+        # always returns array[0] (= 0.0 for a ramp), silencing the axial CPG.
+        _saved_drive = self.sim_parameters.drive
+        self.sim_parameters.drive = drive
+        self.set_frequencies(self.sim_parameters)
+        self.set_nominal_amplitudes(self.sim_parameters)
         self.set_phase_bias(self.sim_parameters)
         self.set_coupling_weights(self.sim_parameters)
+        self.sim_parameters.drive = _saved_drive
 
     def set_frequencies(self, parameters):
         """Set frequencies"""
