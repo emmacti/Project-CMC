@@ -1,5 +1,13 @@
-.DS_Store
-.DS_Store
+# Python cache
 __pycache__/
 *.pyc
-results/
+
+# macOS
+.DS_Store
+
+# Claude
+.claude/
+
+# Optional generated results
+results/*.pdf
+results/*.png
