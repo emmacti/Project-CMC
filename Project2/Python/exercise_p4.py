@@ -6,7 +6,9 @@ import numpy as np
 from salamandra_simulation.simulation import simulation
 from simulation_parameters import SimulationParameters
 from farms_core import pylog
-
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 
 def exercise_4a_transition(timestep):
     """4a Transitions
@@ -64,10 +66,11 @@ def exercise_4a_transition(timestep):
         update_drive=True,
         drive_walk=2.5,
         drive_swim=4.5,
+        limb_spine_phase_offset=-np.pi,  # optimal from ex3a sweep
         transition_contact_threshold=0.6,
         transition_hysteresis=0.2,
         spawn_position=[-2.0, 0.0, 0.05],
-        spawn_orientation=[0, 0, -np.pi],  
+        spawn_orientation=[0, 0, -np.pi],
     )
     simulation(
         sim_parameters=sim_parameters,
@@ -80,17 +83,20 @@ def exercise_4a_transition(timestep):
     )
 
     # Swim -> walk: start in water, pointed towards land
+    # Land is at negative x, water at positive x. The waterline is ~x=+3.8m.
+    # spawn at x=4 (clearly submerged) facing -x (yaw=0) to walk toward land.
     sim_parameters = SimulationParameters(
         duration=35,
         timestep=timestep,
         drive=4.5,
         update_drive=True,
-        drive_walk=2.5,
+        drive_walk=2.775,
         drive_swim=4.5,
+        limb_spine_phase_offset=-np.pi,  # optimal from ex3a sweep
         transition_contact_threshold=0.6,
         transition_hysteresis=0.2,
-        spawn_position=[2.0, 0.0, 0.05],
-        spawn_orientation=[0, 0, np.pi],  # flip heading 
+        spawn_position=[3.0, 0.0, 0.0],
+        spawn_orientation=[0, 0, 0],  # yaw=0 → faces -x → toward land
     )
     simulation(
         sim_parameters=sim_parameters,

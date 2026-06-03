@@ -1,9 +1,6 @@
 """Exercise 3: Limb and Spine Coordination while walking"""
 
 import os
-# MuJoCo rendering backend: 'glfw' is the correct choice on macOS (the default
-# 'egl' is Linux/GPU-only and crashes in multiprocessing worker processes).
-# setdefault leaves the variable unchanged if the user already exported it.
 os.environ.setdefault('MUJOCO_GL', 'glfw')
 import numpy as np
 from salamandra_simulation.simulation import simulation, simulation_sweep
